@@ -5,3 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+
+.right {
+    text-align: right;
+}
