@@ -9,6 +9,7 @@ describe "selections/index" do
     render
 
     assert_select "#remove_song", :count => 0
+    assert_select "#set_number_one", :count => 0
     assert_select "#selection_qty", :text => "2 of #{Selection::SELECTION_QTY}"
   end
 
@@ -20,5 +21,6 @@ describe "selections/index" do
     render
 
     assert_select "#remove_song"
+    assert_select "#set_number_one"
   end
 end

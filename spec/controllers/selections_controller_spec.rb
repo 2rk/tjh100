@@ -20,84 +20,30 @@ describe SelectionsController do
     end
   end
 
-  #describe "GET show" do
-  #  it "assigns the requested selection as @selection" do
-  #    selection = Factory(:selection)
-  #    get :show, {:id => selection.to_param}
-  #    assigns(:selection).should eq(selection)
-  #  end
-  #end
-  #
-  #describe "GET new" do
-  #  it "assigns a new selection as @selection" do
-  #    get :new, {}
-  #    assigns(:selection).should be_a_new(Selection)
-  #  end
-  #end
-  #
-  #describe "GET edit" do
-  #  it "assigns the requested selection as @selection" do
-  #    selection = Selection.create!
-  #    get :edit, {:id => selection.to_param}
-  #    assigns(:selection).should eq(selection)
-  #  end
-  #end
-  #
   describe "POST create" do
-      before do
-        @song = Factory(:song)
-        post :create, song_id: @song
-      end
+    before do
+      @song = Factory(:song)
+      post :create, song_id: @song
+    end
 
-      it("should persist") { assigns(:selection).should be_persisted }
-      it("sets current user") { assigns(:selection).user.should == @logged_in_user }
-      it("sets posted song") { assigns(:selection).song.should == @song }
-      it("redirects to the created selection") { response.should redirect_to(:back) }
+    it("should persist") { assigns(:selection).should be_persisted }
+    it("sets current user") { assigns(:selection).user.should == @logged_in_user }
+    it("sets posted song") { assigns(:selection).song.should == @song }
+    it("redirects to the created selection") { response.should redirect_to(:back) }
   end
 
-  #describe "PUT update" do
-  #  describe "with valid params" do
-  #    it "updates the requested selection" do
-  #      selection = Selection.create! valid_attributes
-  #      # Assuming there are no other selections in the database, this
-  #      # specifies that the Selection created on the previous line
-  #      # receives the :update_attributes message with whatever params are
-  #      # submitted in the request.
-  #      Selection.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-  #      put :update, {:id => selection.to_param, :selection => {'these' => 'params'}}
-  #    end
-  #
-  #    it "assigns the requested selection as @selection" do
-  #      selection = Selection.create! valid_attributes
-  #      put :update, {:id => selection.to_param, :selection => valid_attributes}
-  #      assigns(:selection).should eq(selection)
-  #    end
-  #
-  #    it "redirects to the selection" do
-  #      selection = Selection.create! valid_attributes
-  #      put :update, {:id => selection.to_param, :selection => valid_attributes}
-  #      response.should redirect_to(selection)
-  #    end
-  #  end
-  #
-  #  describe "with invalid params" do
-  #    it "assigns the selection as @selection" do
-  #      selection = Selection.create! valid_attributes
-  #      # Trigger the behavior that occurs when invalid params are submitted
-  #      Selection.any_instance.stub(:save).and_return(false)
-  #      put :update, {:id => selection.to_param, :selection => {}}
-  #      assigns(:selection).should eq(selection)
-  #    end
-  #
-  #    it "re-renders the 'edit' template" do
-  #      selection = Selection.create! valid_attributes
-  #      # Trigger the behavior that occurs when invalid params are submitted
-  #      Selection.any_instance.stub(:save).and_return(false)
-  #      put :update, {:id => selection.to_param, :selection => {}}
-  #      response.should render_template("edit")
-  #    end
-  #  end
-  #end
+  describe "PUT update" do
+    before do
+      @user_10 = Factory(:user)
+      @selection_11 = Factory(:selection, user: @user_10, number_one: true)
+      @selection_12 = Factory(:selection, user: @user_10)
+
+      put :update, {:id => @selection_11}
+    end
+
+    it("updates the requested selection") { @selection_11.reload.number_one.should be_true }
+    it("redirects to the selection") { response.should redirect_to(:back) }
+  end
 
   describe "DELETE destroy" do
     it "destroys the requested selection" do
