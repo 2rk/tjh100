@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :selection do
-    user nil
-    song nil
+    user
+    song
     number_one false
   end
 end

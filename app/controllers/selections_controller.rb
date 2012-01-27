@@ -1,8 +1,10 @@
 class SelectionsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /selections
   # GET /selections.json
   def index
-    @selections = Selection.all
+    @user = User.find(params[:user_id])
+    @selections = @user.selections
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,17 +42,8 @@ class SelectionsController < ApplicationController
   # POST /selections
   # POST /selections.json
   def create
-    @selection = Selection.new(params[:selection])
-
-    respond_to do |format|
-      if @selection.save
-        format.html { redirect_to @selection, notice: 'Selection was successfully created.' }
-        format.json { render json: @selection, status: :created, location: @selection }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @selection.errors, status: :unprocessable_entity }
-      end
-    end
+    @selection = Song.find(params[:song_id]).selections.create(:user_id => current_user)
+    redirect_to :back, notice: 'Selection was successfully created.'
   end
 
   # PUT /selections/1
@@ -75,9 +68,6 @@ class SelectionsController < ApplicationController
     @selection = Selection.find(params[:id])
     @selection.destroy
 
-    respond_to do |format|
-      format.html { redirect_to selections_url }
-      format.json { head :ok }
-    end
+    redirect_to :back
   end
 end

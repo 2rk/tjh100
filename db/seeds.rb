@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
+
+User.delete_all
+Selection.delete_all
+Song.delete_all
+Factory(:user, :email => "nigel@rausch.com.au", :password => "secret")
+
+FactoryGirl.create_list(:user,3)
+FactoryGirl.create_list(:song, 10)

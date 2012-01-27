@@ -5,18 +5,13 @@
     %th Name
     %th Artist
     %th Position
-    %th
-    %th
-    %th
 
   - @songs.each do |song|
     %tr
-      %td= song.name
+      %td= link_to song.name, song
       %td= song.artist
       %td= song.position
-      %td= link_to 'Show', song
-      %td= link_to 'Edit', edit_song_path(song)
-      %td= link_to 'Destroy', song, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to "Add", song_selections_path(song), :method => :post
 
 %br
 

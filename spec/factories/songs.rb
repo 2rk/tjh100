@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :song do
-    name "MyString"
-    artist "MyString"
+    sequence(:name) {|n| "song_#{n}"}
+    sequence(:artist) {|n| "artist_#{n}"}
     position nil
   end
 end

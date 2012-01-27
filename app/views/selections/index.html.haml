@@ -2,22 +2,12 @@
 
 %table
   %tr
-    %th User
     %th Song
     %th Number one
-    %th
-    %th
-    %th
 
   - @selections.each do |selection|
     %tr
-      %td= selection.user
       %td= selection.song
       %td= selection.number_one
-      %td= link_to 'Show', selection
-      %td= link_to 'Edit', edit_selection_path(selection)
-      %td= link_to 'Destroy', selection, :confirm => 'Are you sure?', :method => :delete
 
 %br
-
-= link_to 'New Selection', new_selection_path
