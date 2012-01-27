@@ -2,7 +2,8 @@ class SongsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @songs = Song.all
+    @search = Song.search(params[:search])
+    @songs = @search.page(params[:page]).per(20)
     @song_ids = current_user.selections.map &:song_id
   end
 

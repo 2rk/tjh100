@@ -1,5 +1,18 @@
 %h1 Listing songs
 
+= link_to 'New Song', new_song_path
+%br
+
+= form_for @search do |f|
+  = f.label :name_contains, "Name"
+  = f.text_field :name_contains
+  %br
+  = f.label :artist_contains, "Artist"
+  = f.text_field :artist_contains
+  = f.submit "Search"
+
+= paginate @songs
+
 %table
   %tr
     %th Name
@@ -18,4 +31,5 @@
 
 %br
 
-= link_to 'New Song', new_song_path
+
+= paginate @songs
