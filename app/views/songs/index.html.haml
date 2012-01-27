@@ -1,4 +1,5 @@
 %h1 Listing songs
+%span#selection_qty= "#{@song_ids.length} of #{Selection::SELECTION_QTY}"
 
 = link_to 'New Song', new_song_path
 %br
@@ -27,7 +28,7 @@
       - if @song_ids.include? song.id
         %td= link_to "Remove", selection_path(song), :method => :delete
       - else
-        %td= link_to "Add", song_selections_path(song), :method => :post
+        %td= link_to_unless current_user.max_selections, "Add", song_selections_path(song), :method => :post
 
 %br
 

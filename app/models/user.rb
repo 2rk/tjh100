@@ -9,4 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :selections
 
+  def max_selections
+    selections.count >= Selection::SELECTION_QTY
+  end
 end
