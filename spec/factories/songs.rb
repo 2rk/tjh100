@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :song do
     name "MyString"
     artist "MyString"
-    position 1
+    position nil
   end
 end
