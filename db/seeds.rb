@@ -13,9 +13,8 @@ Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "
 
 users = FactoryGirl.create_list(:user,3)
 songs = []
-50.times do
-  songs << Factory(:song, :name => Faker::Name.last_name)
-end
+50.times { songs << Factory(:song, :name => Faker::Name.last_name) }
+
 Factory(:selection, :song => songs[1], :user => users[0])
 Factory(:selection, :song => songs[1], :user => users[1])
 Factory(:selection, :song => songs[3], :user => users[0], :number_one => true)

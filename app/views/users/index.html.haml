@@ -3,6 +3,7 @@
 %table
   %tr
     %th Name
+    %th QTY
     %th
     %th
     %th
@@ -10,6 +11,7 @@
   - @users.each do |user|
     %tr
       %td= user.name
+      %td= link_to user.selections.count, user_selections_path(user)
       %td= link_to 'Show', user
       %td= link_to 'Edit', edit_user_path(user)
       %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
