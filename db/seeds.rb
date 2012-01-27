@@ -11,5 +11,8 @@ Selection.delete_all
 Song.delete_all
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
 
-FactoryGirl.create_list(:user,3)
-FactoryGirl.create_list(:song, 10)
+users = FactoryGirl.create_list(:user,3)
+songs = FactoryGirl.create_list(:song, 10)
+Factory(:selection, :song => songs[1], :user => users[0])
+Factory(:selection, :song => songs[1], :user => users[1])
+Factory(:selection, :song => songs[3], :user => users[0])

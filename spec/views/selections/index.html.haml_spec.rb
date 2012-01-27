@@ -9,6 +9,7 @@ describe "selections/index" do
     render
 
     assert_select "#remove_song", :count => 0
+    assert_select "#selection_qty", :text => "2 of #{Selection::SELECTION_QTY}"
   end
 
   it "should show the remove link when listing own" do
