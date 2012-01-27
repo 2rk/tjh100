@@ -12,7 +12,10 @@ Song.delete_all
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
 
 users = FactoryGirl.create_list(:user,3)
-songs = FactoryGirl.create_list(:song, 10)
+songs = []
+50.times do
+  songs << Factory(:song, :name => Faker::Name.last_name)
+end
 Factory(:selection, :song => songs[1], :user => users[0])
 Factory(:selection, :song => songs[1], :user => users[1])
 Factory(:selection, :song => songs[3], :user => users[0], :number_one => true)
