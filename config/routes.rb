@@ -1,6 +1,8 @@
 Tjh100::Application.routes.draw do
-  resources :users
+  devise_for :users
 
+  resources :users
+  root :to => "users#show"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
