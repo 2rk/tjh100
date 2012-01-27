@@ -101,15 +101,15 @@ describe SelectionsController do
 
   describe "DELETE destroy" do
     it "destroys the requested selection" do
-      selection = Factory(:selection)
+      selection = Factory(:selection, :user => @logged_in_user)
       expect {
-        delete :destroy, {:id => selection, :song_id => selection.song}
+        delete :destroy, {:id => selection.song_id}
       }.to change(Selection, :count).by(-1)
     end
 
     it "redirects to the selections list" do
-      selection = Factory(:selection)
-      delete :destroy, {:id => selection, :song_id => selection.song}
+      selection = Factory(:selection, :user => @logged_in_user)
+      delete :destroy, {:id => selection.song_id}
       response.should redirect_to(:back)
     end
   end

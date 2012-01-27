@@ -1,13 +1,1 @@
-%h1 Listing selections
-
-%table
-  %tr
-    %th Song
-    %th Number one
-
-  - @selections.each do |selection|
-    %tr
-      %td= selection.song
-      %td= selection.number_one
-
-%br
+= render "index"

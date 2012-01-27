@@ -11,7 +11,10 @@
       %td= link_to song.name, song
       %td= song.artist
       %td= song.position
-      %td= link_to "Add", song_selections_path(song), :method => :post
+      - if @song_ids.include? song.id
+        %td= link_to "Remove", selection_path(song), :method => :delete
+      - else
+        %td= link_to "Add", song_selections_path(song), :method => :post
 
 %br
 

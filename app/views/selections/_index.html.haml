@@ -1,0 +1,14 @@
+%h1 Listing selections
+
+%table
+  %tr
+    %th Song
+    %th Number one
+
+  - @selections.each do |selection|
+    %tr
+      %td= selection.song.name
+      %td= selection.number_one
+      - if current_user == @user
+        %td#remove_song= link_to "Remove", selection_path(selection.song_id), :method => :delete
+%br
