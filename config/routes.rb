@@ -1,4 +1,6 @@
 Tjh100::Application.routes.draw do
+  resources :selections
+
   resources :songs
 
   devise_for :users

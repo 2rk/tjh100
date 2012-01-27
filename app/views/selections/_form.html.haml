@@ -1,0 +1,19 @@
+= form_for @selection do |f|
+  -if @selection.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@selection.errors.count, "error")} prohibited this selection from being saved:"
+      %ul
+        - @selection.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :song
+    = f.text_field :song
+  .field
+    = f.label :number_one
+    = f.check_box :number_one
+  .actions
+    = f.submit 'Save'

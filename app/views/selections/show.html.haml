@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @selection.user
+%p
+  %b Song:
+  = @selection.song
+%p
+  %b Number one:
+  = @selection.number_one
+
+= link_to 'Edit', edit_selection_path(@selection)
+\|
+= link_to 'Back', selections_path
