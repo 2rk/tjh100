@@ -10,9 +10,11 @@
 <% if current_user %>
     <%= link_to "Songs", songs_path %>
     |
-    <%= link_to "Users", users_path %>
-    |
     <%= link_to "My Songs", user_selections_path(current_user) %>
+    |
+    <%= link_to "Results", tweets_path %>
+    |
+    <%= link_to "Users", users_path %>
     |
     <%= link_to "Logout (#{current_user.name})", destroy_user_session_path, :method => :delete %>
 

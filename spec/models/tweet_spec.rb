@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe Tweet do
-  #it "meme" do
-  #  Twitter.user_timeline("triplej", count: 20).each do |x|
-  #    p x.text
-  #  end
-  #end
-
   describe "#get_timeline" do
     context "adding tweets" do
       it "only adds position records" do
@@ -14,10 +8,15 @@ describe Tweet do
         Tweet.get_feed
         Tweet.count.should == 0
       end
-      it "add position tweet" do
-        Twitter.stub(:user_timeline).and_return([Twitter::Status.new("text" => "#6 @LanaDelRey - 'Video Games' #Hottest100", "id" => 20)])
-        Tweet.get_feed
-        Tweet.count.should == 1
+      context "add position tweet" do
+        before do
+          Twitter.stub(:user_timeline).and_return([Twitter::Status.new("text" => "#6 @LanaDelRey - 'Video Games' #Hottest100", "id" => 20)])
+          @song_1 = Factory(:song, name: "Video Games")
+          Tweet.get_feed
+        end
+        it("add record") { Tweet.count.should == 1 }
+        it("set position to 6") { Tweet.last.position == 6 }
+        it("matches song") { Tweet.last.song.should == @song_1 }
       end
 
       context "multiple" do
@@ -44,21 +43,39 @@ describe Tweet do
       end
     end
 
-    context "#is_position_tweet" do
-      it("is a position") { Tweet.is_position_tweet("#4 @BoyAndBear - 'Feeding Line' #Hottest100").should be_true }
-      it("is not a position without a number") { Tweet.is_position_tweet("#This is not a top100 position tweet").should be_false }
-      it("is not a position with # and no number") { Tweet.is_position_tweet("# This is not a top100 position tweet").should be_false }
-      it("is not a position without starting with a hash") { Tweet.is_position_tweet("This is not a top100 position tweet").should be_false }
+    context ".is_position_tweet" do
+      it("is a position") { Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100").is_position_tweet.should be_true }
+      it("is not a position without a number") { Tweet.create(status: "#This is not a top100 position tweet").is_position_tweet.should be_false }
+      it("is not a position with # and no number") { Tweet.create(status: "# This is not a top100 position tweet").is_position_tweet.should be_false }
+      it("is not a position without starting with a hash") { Tweet.create(status: "This is not a top100 position tweet").is_position_tweet.should be_false }
     end
-    context "#position" do
-      it("is  position 4") { Tweet.position("#4 abc").should == 4 }
-      it("is  position 11") { Tweet.position("#11 abc").should == 11 }
-      it("is  position 1") { Tweet.position("#1 abc").should == 1 }
+    context ".position" do
+      it("is position 4") { Tweet.create(status: "#4 abc").position.should == 4 }
+      it("is position 11") { Tweet.create(status: "#11 abc").position.should == 11 }
+      it("is position 1") { Tweet.create(status: "#1 abc").position.should == 1 }
+    end
+    context ".parse_song" do
+      it("is 'feeding Line'") { Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100").parse_song.should == "Feeding Line" }
+      it("is 'Somebody That I Used To Know (Ft. Kimbra)'") { Tweet.create(status: "#1 @Gotye - 'Somebody That I Used To Know (Ft. Kimbra)' #Hottest100").parse_song.should == "Somebody That I Used To Know (Ft. Kimbra)" }
+      it("is handle songs with punctuation (')") { Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line's' #Hottest100").parse_song.should == "Feeding Line's" }
+    end
+    context ".match_song" do
+      before do
+        @song_1 = Factory(:song, :name => "Feeding Line")
+        @song_2 = Factory(:song, :name => "Somebody That I Used To Know (Ft. Kimbra)")
+      end
+      it("is 'feeding Line'") { Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100").song.should == @song_1 }
+      it("is 'Somebody That I Used To Know (Ft. Kimbra)'") { Tweet.create(status: "#1 @Gotye - 'Somebody That I Used To Know (Ft. Kimbra)' #Hottest100").song.should == @song_2 }
+      it "should update Song position" do
+        Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100")
+        @song_1.reload.position.should == 4
+      end
     end
   end
 end
 
 =begin
+Example Tweets
 "#1 @Gotye - 'Somebody That I Used To Know (Ft. Kimbra)' #Hottest100"
 "#2 @TheBlackKeys - 'Lonely Boy' #Hottest100"
 "#3 @Matt_Corby - 'Brother' #Hottest100"
