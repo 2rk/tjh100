@@ -2,7 +2,14 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @users = User.all
+    @song = Song.find_by_id(params[:song_id])
+    if @song
+      @users = @song.users
+    else
+      @users = User.all
+    end
+
+
   end
 
   def show

@@ -21,7 +21,7 @@ songs = []
 # add random selections
 User.all.each do |user|
   Song.all.each do |song|
-    Factory(:selection, song: song, user: user, number_one: (rand(5) == 3)) if rand(3) == 1
+    Factory(:selection, song: song, user: user) if rand(3) == 1
   end
 end
 
@@ -34,7 +34,6 @@ Song.all.each do |song|
   end
 
 end
-
 
 puts "Songs       = #{Song.count}"
 puts "Selections  = #{Selection.count}"

@@ -7,11 +7,25 @@ describe UsersController do
   end
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      users = FactoryGirl.create_list(:user, 5)
-      get :index
-      assigns(:users).should eq(User.all)
+    context "un-nested" do
+      it "assigns all users as @users" do
+        users = FactoryGirl.create_list(:user, 5)
+        get :index
+        assigns(:users).should eq(User.all)
+      end
     end
+    context "nested" do
+      it "shows all users with selected song" do
+        selection_1 = Factory(:selection)
+        selection_2 = Factory(:selection, :song => selection_1.song)
+        selection_3 = Factory(:selection)
+        get :index, :song_id => selection_2.song_id
+
+        assigns(:song).should == selection_2.song
+        assigns(:users).should =~ [selection_1.user, selection_2.user]
+      end
+    end
+
   end
 
   describe "GET show" do
@@ -31,7 +45,7 @@ describe UsersController do
 
   describe "GET edit" do
     it "assigns the requested user as @user" do
-      user = Factory(:user) 
+      user = Factory(:user)
       get :edit, {:id => user.to_param}
       assigns(:user).should eq(user)
     end
@@ -76,19 +90,19 @@ describe UsersController do
     describe "with valid params" do
       before { User.any_instance.stub(:valid?).and_return(true) }
       it "updates the requested user" do
-        user = Factory(:user) 
+        user = Factory(:user)
         User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, {:id => user.to_param, :user => {'these' => 'params'}}
       end
 
       it "assigns the requested user as @user" do
-        user = Factory(:user) 
+        user = Factory(:user)
         put :update, {:id => user.to_param, :user => {}}
         assigns(:user).should eq(user)
       end
 
       it "redirects to the user" do
-        user = Factory(:user) 
+        user = Factory(:user)
         put :update, {:id => user.to_param, :user => {}}
         response.should redirect_to(user)
       end
@@ -116,14 +130,14 @@ describe UsersController do
 
   describe "DELETE destroy" do
     it "destroys the requested user" do
-      user = Factory(:user) 
+      user = Factory(:user)
       expect {
         delete :destroy, {:id => user.to_param}
       }.to change(User, :count).by(-1)
     end
 
     it "redirects to the users list" do
-      user = Factory(:user) 
+      user = Factory(:user)
       delete :destroy, {:id => user.to_param}
       response.should redirect_to(users_url)
     end

@@ -6,6 +6,7 @@ Tjh100::Application.routes.draw do
 
   resources :songs do
     resources :selections, :only => :create
+    resources :users, :only => :index
   end
 
   resources :users do
