@@ -1,9 +1,7 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :tweet do
-    status "MyString"
-    position 1
-    song nil
+    sequence(:status) {|n| "##{101-n} @band_#{101-n} - 'song_name_#{101-n}'"}
+    sequence(:position) {|n| 101-n}
+    song
   end
 end

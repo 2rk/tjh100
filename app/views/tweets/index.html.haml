@@ -2,22 +2,14 @@
 
 %table
   %tr
-    %th Status
     %th Position
     %th Song
-    %th
-    %th
-    %th
+    %th Status
 
   - @tweets.each do |tweet|
     %tr
-      %td= tweet.status
       %td= tweet.position
-      %td= tweet.song
-      %td= link_to 'Show', tweet
-      %td= link_to 'Edit', edit_tweet_path(tweet)
-      %td= link_to 'Destroy', tweet, :confirm => 'Are you sure?', :method => :delete
+      %td
+        = link_to tweet.song.name, tweet.song if tweet.song
+      %td= tweet.status
 
-%br
-
-= link_to 'New Tweet', new_tweet_path

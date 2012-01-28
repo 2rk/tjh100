@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Tweet do
+  it("should be valid") { Factory(:tweet).should be_valid }
+
   describe "#get_timeline" do
     context "adding tweets" do
       it "only adds position records" do

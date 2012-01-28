@@ -9,13 +9,33 @@
 User.delete_all
 Selection.delete_all
 Song.delete_all
+Tweet.delete_all
+
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
 Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret")
 
 users = FactoryGirl.create_list(:user,3)
 songs = []
-50.times { songs << Factory(:song, :name => Faker::Name.last_name) }
+120.times { songs << Factory(:song, :name => Faker::Name.last_name) }
 
-Factory(:selection, :song => songs[1], :user => users[0])
-Factory(:selection, :song => songs[1], :user => users[1])
-Factory(:selection, :song => songs[3], :user => users[0], :number_one => true)
+# add random selections
+User.all.each do |user|
+  Song.all.each do |song|
+    Factory(:selection, song: song, user: user, number_one: (rand(5) == 3)) if rand(3) == 1
+  end
+end
+
+# create some tweets randomly
+pos = 100
+Song.all.each do |song|
+  if rand(3) == 1
+    Factory(:tweet, :status => "##{pos} @#{song.artist} - '#{song.name}'", :song => song)
+    pos -=1
+  end
+
+end
+
+
+puts "Songs       = #{Song.count}"
+puts "Selections  = #{Selection.count}"
+puts "Tweets      = #{Tweet.count}"

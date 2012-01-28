@@ -24,7 +24,7 @@
     %tr
       %td= link_to song.name, song
       %td= song.artist
-      %td= song.position
+      %td.center= song.position
       - if @song_ids.include? song.id
         %td= link_to "Remove", selection_path(song), :method => :delete
       - else
