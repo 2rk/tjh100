@@ -16,12 +16,12 @@ Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret
 
 users = FactoryGirl.create_list(:user,3)
 songs = []
-120.times { songs << Factory(:song, :name => Faker::Name.last_name) }
+300.times { songs << Factory(:song, :name => Faker::Name.last_name) }
 
 # add random selections
 User.all.each do |user|
   Song.all.each do |song|
-    Factory(:selection, song: song, user: user) if rand(3) == 1
+    Factory(:selection, song: song, user: user) if rand(3) == 1 && user.selections.count < Selection::SELECTION_QTY
   end
 end
 
@@ -32,7 +32,7 @@ Song.all.each do |song|
     Factory(:tweet, :status => "##{pos} @#{song.artist} - '#{song.name}'", :song => song)
     pos -=1
   end
-
+  break if pos == 0
 end
 
 puts "Songs       = #{Song.count}"
