@@ -10,6 +10,8 @@ gem "kaminari"
 gem "meta_search"
 gem "devise"
 gem "twitter"
+gem "cancan"
+gem "fracture"
 
 # Gems used only for assets and not required
 # in production environments by default.
