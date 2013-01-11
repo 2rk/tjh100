@@ -9,7 +9,7 @@ gem "haml-rails"
 gem "kaminari"
 gem "meta_search"
 gem "devise"
-gem "twitter"
+gem "twitter", "~>4.4.4"
 gem "cancan"
 gem "fracture"
 

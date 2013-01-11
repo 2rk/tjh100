@@ -3,7 +3,10 @@ require 'spec_helper'
 describe SongsController do
   render_views
 
-  Fracture.define_selector(:edit, "#edit_link")
+  before(:all) do
+
+  Fracture.define_selector(:edit_song, "#edit_link")
+end
 
   let(:user) { Factory(:user) }
   let(:user_admin) { Factory(:user_admin) }
@@ -14,7 +17,7 @@ describe SongsController do
 
     describe ".show" do
       before { get "show", id: song }
-      it("should display edit") { response.body.should have_fracture(:edit) }
+      it("should display edit") { response.body.should have_fracture(:edit_song) }
     end
 
   end
@@ -36,7 +39,7 @@ describe SongsController do
     describe "GET show" do
       before { get :show, {:id => song} }
       it("assigns the requested song as @song") { assigns(:song).should eq(song) }
-      it("should display edit") { response.body.should_not have_fracture(:edit) }
+      it("should display edit") { response.body.should_not have_fracture(:edit_song) }
 
     end
 

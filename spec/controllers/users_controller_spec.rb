@@ -3,9 +3,11 @@ require 'spec_helper'
 describe UsersController do
   render_views
 
-  Fracture.define_selector(:edit, "#edit_link")
-  Fracture.define_selector(:new, "#new_link")
-  Fracture.define_selector(:song_title, "#song_title")
+  before(:all) do
+    Fracture.define_selector(:edit, "#edit_link")
+    Fracture.define_selector(:new, "#new_link")
+    Fracture.define_selector(:song_title, "#song_title")
+  end
 
   let(:user) { Factory(:user) }
   let(:song_1) { Factory(:song) }
@@ -60,7 +62,7 @@ describe UsersController do
           assigns(:song).should == selection_2.song
           assigns(:users).should =~ [selection_1.user, selection_2.user]
           response.body.should_not have_fracture(:new)
-          response.body.should have_fracture(:song_title) 
+          response.body.should have_fracture(:song_title)
 
         end
       end
