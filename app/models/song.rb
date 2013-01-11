@@ -10,4 +10,8 @@ class Song < ActiveRecord::Base
   def recalculate_users
     User.recalculate_scores
   end
+
+  def name_and_artist
+    "#{name} - #{artist}"
+  end
 end

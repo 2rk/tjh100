@@ -10,6 +10,9 @@
   %b Position:
   = @song.position
 
+%p
+  %b Picked by:
+  = link_to "#{@song.selections.length} users", song_users_path(@song)
+
+
 = link_to 'Edit', edit_song_path(@song)
-\|
-= link_to 'Back', songs_path
