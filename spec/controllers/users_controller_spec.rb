@@ -2,14 +2,28 @@ require 'spec_helper'
 
 describe UsersController do
   render_views
+
   Fracture.define_selector(:edit, "#edit_link")
+  Fracture.define_selector(:new, "#new_link")
 
   let(:user) { Factory(:user) }
+  let(:song_1) { Factory(:song) }
 
   context "logged in as admin" do
     before do
       @logged_in_user = Factory(:user, admin: true)
       sign_in @logged_in_user
+    end
+
+    describe "GET index" do
+      context "un-nested" do
+        before { get :index }
+        it("does display new link") { response.body.should have_fracture(:new) }
+      end
+      context "nested" do
+        before { get :index, :song_id => song_1 }
+        it("does display new link") { response.body.should_not have_fracture(:new) }
+      end
     end
 
     describe "GET show" do
@@ -27,11 +41,12 @@ describe UsersController do
 
     describe "GET index" do
       context "un-nested" do
-        it "assigns all users as @users" do
-          users = FactoryGirl.create_list(:user, 5)
+        before do
+          user
           get :index
-          assigns(:users).should eq(User.all)
         end
+        it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
+        it("doesnt display new link") { response.body.should_not have_fracture(:new) }
       end
       context "nested" do
         it "shows all users with selected song" do
@@ -42,6 +57,7 @@ describe UsersController do
 
           assigns(:song).should == selection_2.song
           assigns(:users).should =~ [selection_1.user, selection_2.user]
+          response.body.should_not have_fracture(:new)
         end
       end
 

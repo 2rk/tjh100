@@ -12,7 +12,7 @@ Song.delete_all
 Tweet.delete_all
 
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
-Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret")
+Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret", admin: true)
 
 users = FactoryGirl.create_list(:user,3)
 songs = []

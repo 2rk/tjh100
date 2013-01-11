@@ -13,5 +13,5 @@
       %td.right= user.score
 
 %br
-
-= link_to 'New User', new_user_path
+- if can?(:add, User) && @song.nil?
+  = link_to 'New User', new_user_path, id: "new_link"
