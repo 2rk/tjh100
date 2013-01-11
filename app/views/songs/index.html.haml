@@ -1,6 +1,9 @@
 %h1 Listing songs
+%span You have picked
 %span#selection_qty= "#{@song_ids.length} of #{Selection::SELECTION_QTY}"
+%span songs
 
+%br
 %br
 
 = form_for @search do |f|
@@ -12,8 +15,6 @@
   = f.submit "Search"
 
 = paginate @songs
-%br
-= link_to 'New Song', new_song_path
 
 %table
   %tr
