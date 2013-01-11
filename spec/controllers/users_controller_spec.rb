@@ -5,6 +5,7 @@ describe UsersController do
 
   Fracture.define_selector(:edit, "#edit_link")
   Fracture.define_selector(:new, "#new_link")
+  Fracture.define_selector(:song_title, "#song_title")
 
   let(:user) { Factory(:user) }
   let(:song_1) { Factory(:song) }
@@ -47,6 +48,7 @@ describe UsersController do
         end
         it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
         it("doesnt display new link") { response.body.should_not have_fracture(:new) }
+        it("doesnt display song title") { response.body.should_not have_fracture(:song_title) }
       end
       context "nested" do
         it "shows all users with selected song" do
@@ -58,6 +60,8 @@ describe UsersController do
           assigns(:song).should == selection_2.song
           assigns(:users).should =~ [selection_1.user, selection_2.user]
           response.body.should_not have_fracture(:new)
+          response.body.should have_fracture(:song_title) 
+
         end
       end
 

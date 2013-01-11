@@ -1,5 +1,6 @@
 %h1 Listing users
-
+- if @song
+  %h2#song_title= "who picked #{@song.name} - #{@song.artist}"
 %table
   %tr
     %th Name
