@@ -1,4 +1,4 @@
-%h1 Listing selections
+%h1= "Selections for #{@user.name}"
 %span#selection_qty= "#{@selections.length} of #{Selection::SELECTION_QTY}"
 %table
   %tr
@@ -7,7 +7,7 @@
 
   - @selections.each do |selection|
     %tr
-      %td= selection.song.name
+      %td= link_to selection.song.name, song_path(selection.song)
       %td
         - if selection.number_one
           ***************

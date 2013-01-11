@@ -6,5 +6,8 @@
 %p
   %b Name:
   = @user.email
+
+= link_to "Selected Songs", user_selections_path(@user)
+
 - if can? :update, @user
   = link_to 'Edit', edit_user_path(@user), id: "edit_link"
