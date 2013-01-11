@@ -14,5 +14,5 @@
   %b Picked by:
   = link_to "#{@song.selections.length} users", song_users_path(@song)
 
-
-= link_to 'Edit', edit_song_path(@song)
+- if can? :update, @song
+  = link_to 'Edit', edit_song_path(@song), id: "edit_link"
