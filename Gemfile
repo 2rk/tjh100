@@ -11,6 +11,7 @@ gem "devise"
 gem "twitter", "~>4.4.4"
 gem "cancan"
 gem "fracture"
+gem "mysql2"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,7 +24,7 @@ end
 gem 'jquery-rails'
 
 group :test, :development do
-  gem 'sqlite3'
+  #gem 'sqlite3'
   gem "rspec-rails", "~>2.8.0"
   gem "factory_girl_rails"
   gem "faker"
