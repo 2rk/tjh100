@@ -16,6 +16,7 @@ class TweetsController < ApplicationController
   #
   def new
     Tweet.get_feed
+    render nothing: true
   end
   #
   ## GET /tweets/1/edit
