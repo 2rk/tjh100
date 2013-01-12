@@ -63,8 +63,8 @@ Tjh100::Application.configure do
       :address        => 'smtp.sendgrid.net',
       :port           => '587',
       :authentication => :plain,
-      :user_name      => "app10885348@heroku.com",
-      :password       => "Your Password",
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
       :domain         => 'heroku.com'  }
 
 end
