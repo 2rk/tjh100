@@ -14,16 +14,9 @@ class TweetsController < ApplicationController
   #  end
   #end
   #
-  ## GET /tweets/new
-  ## GET /tweets/new.json
-  #def new
-  #  @tweet = Tweet.new
-  #
-  #  respond_to do |format|
-  #    format.html # new.html.erb
-  #    format.json { render json: @tweet }
-  #  end
-  #end
+  def new
+    Tweet.get_feed
+  end
   #
   ## GET /tweets/1/edit
   #def edit
