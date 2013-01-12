@@ -23,11 +23,14 @@ end
 
 gem 'jquery-rails'
 
+#TODO moved to prod so seed.rb will work
+gem "factory_girl_rails"
+gem "faker"
+
+
 group :test, :development do
   #gem 'sqlite3'
   gem "rspec-rails", "~>2.8.0"
-  gem "factory_girl_rails"
-  gem "faker"
   gem "capybara"
   gem "cucumber-rails"
   gem "database_cleaner"
