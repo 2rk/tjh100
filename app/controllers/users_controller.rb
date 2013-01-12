@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
+    if params[:user][:password].blank? ? @user.update_without_password(params[:user]) : @user.update_attributes(params[:user])
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: "edit"
