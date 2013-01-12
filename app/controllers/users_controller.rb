@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   def index
     @song = Song.find_by_id(params[:song_id])
     if @song
-      @users = @song.users
+      @users = @song.users.order(:name)
     else
-      @users = User.all
+      @users = User.order(:name).all
     end
 
 
