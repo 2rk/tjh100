@@ -7,8 +7,8 @@ gem 'json'
 gem "haml-rails"
 gem "kaminari"
 gem "meta_search"
-gem "devise"
-gem "twitter", "~>4.4.4"
+gem "devise", "2.0.0"
+gem "twitter", "2.5.0"
 gem "cancan"
 gem "fracture"
 gem "mysql2"
@@ -24,14 +24,14 @@ end
 gem 'jquery-rails'
 
 #TODO moved to prod so seed.rb will work
-gem "factory_girl_rails"
+gem "factory_girl_rails", "1.6.0"
 gem "faker"
 
 
 group :test, :development do
   #gem 'sqlite3'
   gem "rspec-rails", "~>2.8.0"
-  gem "capybara"
-  gem "cucumber-rails"
+  gem "capybara", "1.1.2"
+  #gem "cucumber-rails"
   gem "database_cleaner"
 end
