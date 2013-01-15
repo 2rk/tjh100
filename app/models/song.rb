@@ -25,10 +25,8 @@ class Song < ActiveRecord::Base
       list = list.at("p")
 
       list.css("span .artist").each do |item|
-        Song.create(name:item.next_element.next_element.text, artist: item.text )
+        Song.create(name:item.next_element.next_element.text.strip, artist: item.text.strip )
       end
     end
   end
-
-
-  end
+end
