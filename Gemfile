@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'nokogiri'
 
 #TODO moved to prod so seed.rb will work
 gem "factory_girl_rails", "1.6.0"

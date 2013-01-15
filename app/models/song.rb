@@ -14,4 +14,21 @@ class Song < ActiveRecord::Base
   def name_and_artist
     "#{name} - #{artist}"
   end
-end
+
+  def self.scrape_songs
+    require 'open-uri'
+    for i in 0..26
+      url = "http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=96&IX=0&IG=#{i}"
+      doc = Nokogiri::HTML(open(url))
+
+      list = doc.at("div .IndexPageContent")
+      list = list.at("p")
+
+      list.css("span .artist").each do |item|
+        puts "#{item.text} ** #{ item.next_element.next_element.text}"
+      end
+    end
+  end
+
+
+  end
