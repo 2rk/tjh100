@@ -25,7 +25,7 @@ class Song < ActiveRecord::Base
       list = list.at("p")
 
       list.css("span .artist").each do |item|
-        puts "#{item.text} ** #{ item.next_element.next_element.text}"
+        Song.create(name:item.next_element.next_element.text, artist: item.text )
       end
     end
   end
