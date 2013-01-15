@@ -35,4 +35,5 @@ group :test, :development do
   gem "capybara", "1.1.2"
   #gem "cucumber-rails"
   gem "database_cleaner"
+  gem "awesome_print"
 end
