@@ -1,5 +1,5 @@
 class Selection < ActiveRecord::Base
-  SELECTION_QTY = 10
+  SELECTION_QTY = 40
   belongs_to :user
   belongs_to :song
 
