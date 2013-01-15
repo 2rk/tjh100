@@ -1,0 +1,29 @@
+<h2 xmlns="http://www.w3.org/1999/html">Triplej Hottest 100 Tipping Comp</h2>
+
+<div class='intro'>
+  What started as a bit of fun each year between a couple of friends with *cough* an excel spreadsheet *cough*, is now online!</br>
+  So, you register below and pick 40 songs that you think will poll the best on the day, not necessarily 'your' favourites.</br>
+  <b>Scoring</b></br>
+  The scoring is 1 point if a song pick comes in at position 100, through to 100 points for the number 1 song.</br>
+  You also select one of your 40 picks to be the song that you think will be number 1.  The pick that scores the highest gets 50
+  additional points.  Should there be more than one person who picks the same song, all will get 50 points
+</div><div class='credits'>
+  Site created by Nigel and Sean, with UI enhancements by Nathan
+</div>
+
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <div><%= f.label :email %><br />
+      <%= f.email_field :email %></div>
+
+    <div><%= f.label :password %><br />
+      <%= f.password_field :password %></div>
+
+    <% if devise_mapping.rememberable? -%>
+        <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <% end -%>
+
+    <div><%= f.submit "Sign in" %></div>
+<% end %>
+
+<%= render "links" %>
