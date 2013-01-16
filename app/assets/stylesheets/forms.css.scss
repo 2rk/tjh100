@@ -1,0 +1,75 @@
+.modal-before {
+  width: 560px;
+  margin: auto;
+  top: 35px;
+  position: relative;
+  
+  a {
+    color: #444;
+  }
+}
+
+.modal-after {
+  width: 560px;
+  margin: auto;
+  position: relative;
+  
+  a {
+    color: #444;
+  }
+}
+
+.modal {
+  &.full-height {
+    position: relative;
+    top: 50px;
+    left: 0;
+    margin: 0 auto 80px auto;
+    
+    .modal-header {
+      a {
+        color: #999;
+      }
+    }
+    
+    .modal-body {
+      max-height: none;
+      overflow: visible;
+    }
+  }
+  
+  form {
+    margin-bottom: 0;
+  }
+  
+  h3 {
+    font-family: Crete Round;
+    color: #666;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-bottom: none;
+    margin: 5px 0;
+    padding: 0;
+    
+    select {
+      font-size: 24px;
+      font-family: Quando;
+      height: 45px;
+    }
+  }
+  
+  hr {
+    margin: 20px -15px;
+  }
+  
+  .help-block {
+    color: #999;
+  }
+}
+
+
+table {
+  td.actions {
+    text-align: right;
+  }
+}

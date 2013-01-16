@@ -2,10 +2,11 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 
-gem "pg"
+# gem "pg"
 gem 'json'
 gem "haml-rails"
 gem "kaminari"
+gem "kaminari-bootstrap"
 gem "meta_search"
 gem "devise", "2.0.0"
 gem "twitter", "2.5.0"

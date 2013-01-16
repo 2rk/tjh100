@@ -1,10 +1,12 @@
 %h1= "Selections for #{@user.name}"
-%span#selection_qty= "#{@selections.length} of #{Selection::SELECTION_QTY}"
-%table
+%h4#selection_qty= "Selected #{@selections.length} of #{Selection::SELECTION_QTY} songs"
+
+%table.table.table-striped
   %tr
     %th Song
     %th Number one
-
+    %th
+    
   - @selections.each do |selection|
     %tr
       %td= link_to selection.song.name, song_path(selection.song)
@@ -12,7 +14,7 @@
         - if selection.number_one
           ***************
         - elsif current_user == @user
-          = link_to "set", selection, :method => :put, :id => "set_number_one"
-      - if current_user == @user
-        %td#remove_song= link_to "Remove", selection_path(selection.song_id), :method => :delete
-%br
+          = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
+      %td.actions
+        - if current_user == @user
+          .actions#remove_song= link_to "Remove", selection_path(selection.song_id), :method => :delete, :class => 'btn btn-mini btn-danger'

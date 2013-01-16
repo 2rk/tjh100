@@ -1,27 +1,21 @@
-%h1 Listing songs
-%span You have picked
-%span#selection_qty= "#{@song_ids.length} of #{Selection::SELECTION_QTY}"
-%span songs
+%h1 Songs
+%h4
+  You have picked #{@song_ids.length} of #{Selection::SELECTION_QTY} songs
 
-%br
-%br
+.navbar
+  .navbar-inner
+    = form_for @search, :html => { :class => 'navbar-form' } do |f|
+      = f.text_field :name_contains, :placeholder => 'Name of song'
+      = f.text_field :artist_contains, :placeholder => 'Artist'
+      = f.submit "Filter list", :class => 'btn'
 
-= form_for @search do |f|
-  = f.label :name_contains, "Name"
-  = f.text_field :name_contains
-  %br
-  = f.label :artist_contains, "Artist"
-  = f.text_field :artist_contains
-  = f.submit "Search"
-
-= paginate @songs
-
-%table
+%table.table.table-striped
   %tr
     %th Name
     %th Artist
     %th Position
     %th Picks
+    %td
 
   - @songs.each do |song|
     %tr
@@ -30,11 +24,8 @@
       %td.center= song.position
       %td.center= link_to song.selections.length, song_users_path(song)
       - if @song_ids.include? song.id
-        %td= link_to "Remove", selection_path(song), :method => :delete
+        %td.actions= link_to "Remove", selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger'
       - else
-        %td= link_to_unless current_user.max_selections, "Add", song_selections_path(song), :method => :post
-
-%br
-
+        %td.actions= link_to_unless current_user.max_selections, "Add", song_selections_path(song), :method => :post, :class => 'btn btn-mini btn-success'
 
 = paginate @songs

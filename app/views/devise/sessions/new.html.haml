@@ -8,18 +8,31 @@
   additional points.  Should there be more than one person who picks the same song, all will get 50 points
 .credits
   Site created by Nigel and Sean, with UI enhancements by Nathan
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Sign in"
-= render "links"
+
+
+.modal.full-height
+  = form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' } do |f|
+    .modal-header
+      %h3 Sign in
+    
+    .modal-body
+      .control-group
+        = f.label :email, :class => 'control-label'
+        .controls
+          = f.email_field :email
+      
+      .control-group
+        = f.label :password, :class => 'control-label'
+        .controls
+          = f.password_field :password
+          .help-block
+            = link_to "Need to reset your password?", new_password_path(:user)
+      
+      - if devise_mapping.rememberable?
+        .hide
+          = f.check_box :remember_me
+          = f.label :remember_me
+    
+    .modal-footer
+      = f.submit "Sign in", :class => 'btn btn-primary'
+      = link_to 'Sign up', new_user_registration_path, :class => 'btn'

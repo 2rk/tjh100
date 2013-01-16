@@ -1,0 +1,27 @@
+.navbar {
+//  margin-top: 10px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  
+  .navbar-inner {
+    padding: 0 10px;
+  }
+  
+  a.brand {
+    color: #f00;
+    text-shadow: 0 0 10px #f00, 0 0 15px #f00;
+  
+    &:hover {
+      color: #f00;
+      text-shadow: 0 0 10px #f00, 0 0 15px #f00, 0 0 20px #f00, 0 0 30px #f00;
+    }
+  }
+}
+
+.modal {
+  position: relative;
+  margin-top: 20px;
+}
+
+.pagination a:hover {
+  color: black;
+}
