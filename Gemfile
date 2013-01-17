@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-# gem "pg"
+gem "pg"
 gem 'json'
 gem "haml-rails"
 gem "kaminari"
