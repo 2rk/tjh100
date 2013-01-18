@@ -15,6 +15,10 @@ describe UsersController do
       get("/users/1").should route_to("users#show", :id => "1")
     end
 
+    it "routes to #lock" do
+      get("/users/1/lock").should route_to("users#lock", :id => "1")
+    end
+
     it "routes to #edit" do
       get("/users/1/edit").should route_to("users#edit", :id => "1")
     end

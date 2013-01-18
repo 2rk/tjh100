@@ -17,8 +17,12 @@
             %li= link_to "Results", tweets_path
             %li= link_to "Users", users_path
             %li= link_to "Logout (#{current_user.name})", destroy_user_session_path, :method => :delete
-            
-    .container.content
+      .container.content
+        %h4
+          You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
+          = link_to "Lock Now", lock_user_path(current_user), confirm: 'Make sure you have have selected all your songs as this is not reversible. Are you sure?'
+
+    .container
       - if notice
         .alert.alert-info= notice
         

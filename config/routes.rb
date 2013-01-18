@@ -10,6 +10,7 @@ Tjh100::Application.routes.draw do
   end
 
   resources :users do
+    member { get 'lock' }
     resources :selections, :only => :index
   end
 

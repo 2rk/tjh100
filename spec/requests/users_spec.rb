@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Users" do
 
-  let(:user) { Factory(:user)}
+  let(:user) { Factory(:user) }
 
   context "sign-up" do
     it "should sign-up" do
@@ -54,6 +54,33 @@ describe "Users" do
     click_button "Sign in"
 
     page.body.should have_content("Signed in successfully.")
+  end
+
+
+  context "lock" do
+    context "user" do
+      it "should lock own" do
+        login_as user
+        visit lock_user_path(user)
+
+        user.reload
+        user.locked.should be_true
+      end
+      it "should not lock non-owned" do
+        login_as Factory(:user)
+        visit lock_user_path(user)
+        user.reload
+        user.locked.should be_false
+      end
+    end
+    context "admin" do
+      it "should lock any" do
+        login_as Factory(:user, admin: true)
+        visit lock_user_path(user)
+        user.reload
+        user.locked.should be_true
+      end
+    end
   end
 
 end

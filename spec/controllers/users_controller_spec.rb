@@ -35,7 +35,26 @@ describe UsersController do
       it("displays edit button for unowned") { response.body.should have_fracture(:edit) }
     end
 
+    describe "GET lock" do
+      context "owned record" do
+        before { get :lock, {:id => @logged_in_user.to_param} }
+
+        it "should set user to lock" do
+          response.should redirect_to(user_path(@logged_in_user))
+        end
+      end
+
+      context "unowned record" do
+        before { get :lock, {:id => user.to_param} }
+
+        it "should lock user" do
+          response.should redirect_to(user_path(user))
+        end
+      end
+    end
   end
+
+  # User
   context "user" do
     before do
       @logged_in_user = Factory(:user)
@@ -74,6 +93,7 @@ describe UsersController do
         before { get :show, {:id => @logged_in_user.to_param} }
 
         it("displays edit button for owned") { response.body.should have_fracture(:edit) }
+
       end
 
       context "unowned record" do
@@ -81,6 +101,24 @@ describe UsersController do
 
         it("assigns the requested user as @user") { assigns(:user).should eq(user) }
         it("does not displays edit button for unowned") { response.body.should_not have_fracture(:edit) }
+      end
+    end
+
+    describe "GET lock" do
+      context "owned record" do
+        before { get :lock, {:id => @logged_in_user.to_param} }
+
+        it "should set user to lock" do
+          response.should redirect_to(user_path(@logged_in_user))
+        end
+      end
+
+      context "unowned record" do
+        before { get :lock, {:id => user.to_param} }
+
+        it "should logout" do
+          response.should redirect_to(new_user_session_path)
+        end
       end
     end
 

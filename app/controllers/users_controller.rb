@@ -50,4 +50,20 @@ class UsersController < ApplicationController
 
     redirect_to users_url
   end
+
+  def lock
+    @user = User.find(params[:id])
+
+    if current_user.admin?
+      @user.update_attribute(:locked, true)
+      redirect_to @user
+    else
+      if current_user == @user
+        @user.update_attribute(:locked, true)
+        redirect_to @user
+      else
+        redirect_to new_user_session_path
+      end
+    end
+  end
 end
