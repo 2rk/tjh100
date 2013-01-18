@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe SelectionsController do
 
+  render_views
+
+  before(:all) do
+    Fracture.define_selector(:user_change_picks, "#remove_pick", "#set_number_one")
+  end
+
   # User
   context "logged in as user" do
     before do
@@ -13,20 +19,34 @@ describe SelectionsController do
 
     describe "GET index" do
       context "owned" do
-        before do
-          user_2 = Factory(:user)
-          @selections_1 = FactoryGirl.create_list(:selection, 2, user: @logged_in_user)
-          selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
-          get :index, :user_id => @logged_in_user
+        context "unlocked" do
+          before do
+            user_2 = Factory(:user)
+            @selections_1 = FactoryGirl.create_list(:selection, 2, user: @logged_in_user)
+            selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
+            get :index, :user_id => @logged_in_user
+          end
+          it("assigns all selections as @selections") { assigns(:selections).should eq(@selections_1) }
+          it { response.body.should have_fracture(:user_change_picks) }
         end
-        it("assigns all selections as @selections") { assigns(:selections).should eq(@selections_1) }
+        context "locked" do
+          before do
+            user_2 = Factory(:user)
+            @selections_1 = FactoryGirl.create_list(:selection, 2, user: @logged_in_user)
+            selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
+            @logged_in_user.update_attribute(:locked, true)
+            get :index, :user_id => @logged_in_user
+          end
+          it("assigns all selections as @selections") { assigns(:selections).should eq(@selections_1) }
+          it { response.body.should_not have_fracture(:user_change_picks) }
+        end
       end
       context "not owned" do
         it "not display when user not locked" do
           user_2 = Factory(:user)
           selections_1 = FactoryGirl.create_list(:selection, 2, user: @logged_in_user)
           selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
-          expect { get :index, :user_id => user_2}.to raise_error(CanCan::AccessDenied)
+          expect { get :index, :user_id => user_2 }.to raise_error(CanCan::AccessDenied)
         end
 
         it "display when user locked" do

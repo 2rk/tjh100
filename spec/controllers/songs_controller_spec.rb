@@ -6,6 +6,7 @@ describe SongsController do
   before(:all) do
     Fracture.define_selector(:edit_song, "#edit_link")
     Fracture.define_selector(:song_picks, "#picks_title", "#picks_data")
+    Fracture.define_selector(:change_picks, "#change_pick")
 
   end
 
@@ -40,6 +41,7 @@ describe SongsController do
 
         it("assigns all songs as @songs") { assigns(:songs).should eq(@song) }
         it("does not display picks") { response.body.should_not have_fracture(:song_picks)}
+        it("allows selecting songs") { response.body.should have_fracture(:change_picks)}
       end
 
       context "user locked" do
@@ -50,6 +52,8 @@ describe SongsController do
         end
 
         it("does display picks") { response.body.should have_fracture(:song_picks)}
+        it("not allow changing picks") { response.body.should_not have_fracture(:change_picks)}
+
       end
     end
 

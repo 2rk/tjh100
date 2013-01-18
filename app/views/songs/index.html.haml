@@ -25,10 +25,10 @@
         %td.center#picks_data
           - if song.selections.length > 0
             = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
-
-      - if @song_ids.include? song.id
-        %td.actions= link_to 'Unpick', selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger'
-      - else
-        %td.actions= link_to_unless current_user.max_selections, 'Pick', song_selections_path(song), :method => :post, :class => 'btn btn-mini btn-success'
+      - unless current_user.locked?
+        - if @song_ids.include? song.id
+          %td.actions= link_to 'Unpick', selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger', id: "change_pick"
+        - else
+          %td.actions= link_to_unless current_user.max_selections, 'Pick', song_selections_path(song), :method => :post, :class => 'btn btn-mini btn-success', id: "change_pick"
 
 = paginate @songs
