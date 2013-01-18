@@ -12,7 +12,9 @@
   - @users.each do |user|
     %tr
       %td= link_to user.name, user
-      %td.right= link_to user.selections.count, user_selections_path(user)
+      %td.right
+        - if user.selections.length > 0
+          = link_to pluralize(user.selections.length, 'selection'), user_selections_path(user)
       %td.right= user.score
 
 %br

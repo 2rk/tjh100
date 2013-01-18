@@ -22,10 +22,13 @@
       %td= link_to song.name, song
       %td= song.artist
       %td.center= song.position
-      %td.center= link_to song.selections.length, song_users_path(song)
+      %td.center
+        - if song.selections.length > 0
+          = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
+          
       - if @song_ids.include? song.id
-        %td.actions= link_to "Remove", selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger'
+        %td.actions= link_to 'Unpick', selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger'
       - else
-        %td.actions= link_to_unless current_user.max_selections, "Add", song_selections_path(song), :method => :post, :class => 'btn btn-mini btn-success'
+        %td.actions= link_to_unless current_user.max_selections, 'Pick', song_selections_path(song), :method => :post, :class => 'btn btn-mini btn-success'
 
 = paginate @songs
