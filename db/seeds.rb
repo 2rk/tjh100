@@ -15,8 +15,7 @@ Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "
 Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret", admin: true)
 
 users = FactoryGirl.create_list(:user,3)
-songs = []
-300.times { songs << Factory(:song, :name => Faker::Name.last_name) }
+Song.scrape_songs
 
 # add random selections
 User.all.each do |user|

@@ -10,7 +10,7 @@ describe "Users" do
       fill_in "Name", with: "Fred"
       fill_in "Email", with: "fred@flintstones.com"
       fill_in "Password", with: "secret"
-      fill_in "Password confirmation", with: "secret"
+      fill_in "Password again", with: "secret"
 
       click_button "Sign up"
 
