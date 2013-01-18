@@ -12,7 +12,8 @@
     %th Name
     %th Artist
     %th Position
-    %th Picks
+    - if current_user.display_picks
+      %th#picks_title Picks
     %td
 
   - @songs.each do |song|
@@ -20,10 +21,11 @@
       %td= link_to song.name, song
       %td= song.artist
       %td.center= song.position
-      %td.center
-        - if song.selections.length > 0
-          = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
-          
+      - if current_user.display_picks
+        %td.center#picks_data
+          - if song.selections.length > 0
+            = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
+
       - if @song_ids.include? song.id
         %td.actions= link_to 'Unpick', selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger'
       - else

@@ -12,7 +12,10 @@
 
 %p
   %b Picked by:
-  = link_to "#{@song.selections.length} users", song_users_path(@song)
+  - if current_user.display_picks
+    = link_to "#{@song.selections.length} users", song_users_path(@song)
+  - else
+    Not Available until you lock your selections
 
 - if can? :update, @song
   = link_to 'Edit', edit_song_path(@song), id: "edit_link"

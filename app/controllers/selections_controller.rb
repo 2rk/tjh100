@@ -1,6 +1,9 @@
 class SelectionsController < ApplicationController
   before_filter :authenticate_user!
 
+  load_and_authorize_resource :user, only: :index
+  load_and_authorize_resource :selection, through: :user, only: :index
+
   def index
     @user = User.find(params[:user_id])
     @selections = @user.selections

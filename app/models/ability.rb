@@ -6,8 +6,14 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, User, :all
+      if user.locked?
+        can :read, User
+      else
+        can :show, User, :id => user.id
+        can :index, User
+      end
       can :update, User, :id => user.id
+      can :read, Selection, :user_id => user.id
     end
 
     # Define abilities for the passed in user here. For example:

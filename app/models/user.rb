@@ -29,4 +29,9 @@ class User < ActiveRecord::Base
     end
     self.update_attribute(:score, total)
   end
+
+  def display_picks
+    admin? || locked?
+  end
+
 end

@@ -14,7 +14,7 @@
       %td= link_to user.name, user
       %td.right
         - if user.selections.length > 0
-          = link_to pluralize(user.selections.length, 'selection'), user_selections_path(user)
+          = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
       %td.right= user.score
 
 %br

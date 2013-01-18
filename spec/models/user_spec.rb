@@ -40,4 +40,14 @@ describe User do
       @user_10.reload.score.should == 22
     end
   end
+
+  describe ".display_picks" do
+    context "user" do
+      it("when not locked") { Factory(:user).display_picks.should be_false }
+      it("when locked") { Factory(:user, locked: true).display_picks.should be_true }
+    end
+    context "admin" do
+      it("display picks") { Factory(:user_admin).display_picks.should be_true }
+    end
+  end
 end

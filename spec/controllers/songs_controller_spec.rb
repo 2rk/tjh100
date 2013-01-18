@@ -4,9 +4,10 @@ describe SongsController do
   render_views
 
   before(:all) do
+    Fracture.define_selector(:edit_song, "#edit_link")
+    Fracture.define_selector(:song_picks, "#picks_title", "#picks_data")
 
-  Fracture.define_selector(:edit_song, "#edit_link")
-end
+  end
 
   let(:user) { Factory(:user) }
   let(:user_admin) { Factory(:user_admin) }
@@ -21,6 +22,8 @@ end
     end
 
   end
+
+  # user
   context "logged in as user" do
     before { sign_in user }
 
@@ -29,10 +32,24 @@ end
     end
 
     describe "GET index" do
-      it "assigns all songs as @songs" do
-        song = FactoryGirl.create_list(:song, 2)
-        get :index
-        assigns(:songs).should eq(song)
+      context "user not locked" do
+        before do
+          @song = FactoryGirl.create_list(:song, 2)
+          get :index
+        end
+
+        it("assigns all songs as @songs") { assigns(:songs).should eq(@song) }
+        it("does not display picks") { response.body.should_not have_fracture(:song_picks)}
+      end
+
+      context "user locked" do
+        before do
+          user.update_attribute(:locked, true)
+          song = FactoryGirl.create_list(:song, 2)
+          get :index
+        end
+
+        it("does display picks") { response.body.should have_fracture(:song_picks)}
       end
     end
 
