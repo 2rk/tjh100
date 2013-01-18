@@ -20,7 +20,11 @@
       .container.content
         %h4
           You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
-          = link_to "Lock Now", lock_user_path(current_user), confirm: 'Make sure you have have selected all your songs as this is not reversible. Are you sure?'
+          - if current_user.locked?
+            LOCKED!
+          - else
+            = link_to "Lock Now", lock_user_path(current_user), confirm: 'Make sure you have have selected all your songs as this is not reversible. Are you sure?', id: "user_lock"
+
 
     .container
       - if notice

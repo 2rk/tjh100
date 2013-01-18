@@ -7,6 +7,7 @@ describe UsersController do
     Fracture.define_selector(:edit, "#edit_link")
     Fracture.define_selector(:new, "#new_link")
     Fracture.define_selector(:song_title, "#song_title")
+    Fracture.define_selector(:user_lock, "#user_lock")
   end
 
   let(:user) { Factory(:user) }
@@ -93,7 +94,17 @@ describe UsersController do
         before { get :show, {:id => @logged_in_user.to_param} }
 
         it("displays edit button for owned") { response.body.should have_fracture(:edit) }
+        it("displays lock button") { response.body.should have_fracture(:user_lock) }
 
+      end
+      context "locked" do
+        before do
+          @logged_in_user.update_attribute(:locked, true)
+
+          get :show, {:id => @logged_in_user.to_param}
+        end
+
+        it("does not displays lock button") { response.body.should_not have_fracture(:user_lock) }
       end
 
       context "unowned record" do
