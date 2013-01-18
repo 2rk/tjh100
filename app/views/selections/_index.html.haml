@@ -11,7 +11,7 @@
       %td= link_to selection.song.name, song_path(selection.song)
       %td
         - if selection.number_one
-          ***************
+          %b #1 Pick
         - elsif current_user == @user && !current_user.locked?
           = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
       %td.actions
