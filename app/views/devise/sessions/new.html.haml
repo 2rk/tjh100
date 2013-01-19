@@ -1,14 +1,35 @@
 %h2 Triplej Hottest 100 Tipping Comp
-.intro
+.textarea
+  %h3 What is it?
   What started as a bit of fun each year between a couple of friends with *cough* an excel spreadsheet *cough*, is now online!
   So, you register below and pick 40 songs that you think will poll the best on the day, not necessarily 'your' favourites.
-  %b Scoring
-  The scoring is 1 point if a song pick comes in at position 100, through to 100 points for the number 1 song.
+%h3 Scoring
+.textarea
+  You get 1 point if a song pick comes in at position 100, working through to 100 points for the number 1 song.
   You also select one of your 40 picks to be the song that you think will be number 1.  The pick that scores the highest gets 50
   additional points.  Should there be more than one person who picks the same song, all will get 50 points
-.credits
-  Site created by Nigel and Sean, with UI enhancements by Nathan
+%p
+  .textarea
+    You can make your selections over any number of days, but as soon as you submit your picks, you can't change them!  As you then
+    get to see everyone else's picks.
 
+    You can check out the full listing by
+    %a{ :href => 'https://docs.google.com/file/d/0B5YpmZvL193jSWE0Y2JVWldZb28/edit' }
+      song
+    or
+    %a{ :href => 'https://docs.google.com/file/d/0B5YpmZvL193jZjQ5ZlhPNVVZRjQ/edit' }
+      artist
+    and hear the tracks on
+    %a{ :href => 'http://open.spotify.com/user/triple.j.abc/playlist/3xbVLD7QASeqUcol6bnqip' }
+      Spotify
+    or
+    %a{ :href => 'http://www.rdio.com/people/triplej/playlists/1870242/Hottest_100_2012_Candidates/' }
+      Rdio.
+
+%p
+  .textarea
+    Sign up, and have some fun!  Feel free to pass on the link to your friends, though this was a quick hack, and can hopefully
+    handle more than 3 users :)
 
 .modal.full-height
   = form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' } do |f|
@@ -36,3 +57,6 @@
     .modal-footer
       = f.submit "Sign in", :class => 'btn btn-primary'
       = link_to 'Sign up', new_user_registration_path, :class => 'btn'
+
+.credits
+  Site hacked together by Nigel and Sean, with UI enhancements by Nathan
