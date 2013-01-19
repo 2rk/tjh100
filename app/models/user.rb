@@ -34,4 +34,7 @@ class User < ActiveRecord::Base
     admin? || locked?
   end
 
+  def ok_to_submit?
+    selections.count == Selection::SELECTION_QTY
+  end
 end

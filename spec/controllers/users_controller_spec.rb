@@ -98,7 +98,8 @@ describe UsersController do
         before { get :show, {:id => @logged_in_user.to_param} }
 
         it("displays edit button for owned") { response.body.should have_fracture(:edit) }
-        it("displays lock button") { response.body.should have_fracture(:user_lock) }
+        #TODO write test to create 40 selections and then you should see the button
+        it("displays lock button") { response.body.should_not have_fracture(:user_lock) }
 
       end
       context "locked" do
