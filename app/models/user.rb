@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
   end
 
   def ok_to_submit?
-    selections.count == Selection::SELECTION_QTY
+    selections.count == Selection::SELECTION_QTY && selections.where(:number_one => true).count !=0
+  end
+
+  def self.number_submitted
+    User.where(locked: true).count
   end
 end
