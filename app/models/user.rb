@@ -35,7 +35,11 @@ class User < ActiveRecord::Base
   end
 
   def ok_to_submit?
-    selections.count == Selection::SELECTION_QTY && selections.where(:number_one => true).count !=0
+    selections.count == Selection::SELECTION_QTY && number1_selected?
+  end
+
+  def number1_selected?
+    selections.where(:number_one => true).count !=0
   end
 
   def self.number_submitted

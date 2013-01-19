@@ -22,6 +22,8 @@
       .container.content
         %h4
           You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
+          - if !current_user.number1_selected?
+            and you need to pick a number 1
           - if current_user.locked?
             You have submitted your songs.
           - else
