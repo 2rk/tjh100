@@ -11,14 +11,14 @@ class SelectionsController < ApplicationController
 
   def create
     @selection = Song.find(params[:song_id]).selections.create(:user_id => current_user.id)
-    redirect_to :back, notice: 'Selection was successfully created.'
+    redirect_to :back
   end
 
   def update
     @selection = Selection.find(params[:id])
 
     @selection.update_attributes(:number_one => true)
-    redirect_to :back, notice: 'Number One was successfully set.'
+    redirect_to :back
   end
 
   def destroy
