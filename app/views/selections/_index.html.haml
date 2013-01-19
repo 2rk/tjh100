@@ -8,7 +8,7 @@
     
   - @selections.each do |selection|
     %tr
-      %td= link_to selection.song.name, song_path(selection.song)
+      %td= link_to selection.song.name + " (" + selection.song.artist + ")", song_path(selection.song)
       %td
         - if selection.number_one
           %b #1 Pick

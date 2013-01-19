@@ -14,7 +14,7 @@
 
   - @users.each do |user|
     %tr
-      %td= link_to user.name, user
+      %td= link_to user.name, user_selections_path(user)
       %td.right
         - if user.selections.length > 0
           = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
