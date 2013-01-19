@@ -20,16 +20,18 @@
             - if current_user.admin?
               %li= link_to "Switch to Game Day", id: "game_day"
       .container.content
-        %h4
-          You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
-          - if !current_user.number1_selected?
-            and you need to pick a number 1
-          - if current_user.locked?
-            You have submitted your songs.
-          - else
-            - if current_user.ok_to_submit?
-              = link_to "Submit Your Songs", lock_user_path(current_user), confirm: "Make sure you are happy with your songs as you can't change this later. Are you sure?",
-              id: "user_lock", :class => 'btn btn-mini btn-success'
+        Welcome #{current_user.name}, There are #{(Date.new(2013, 1, 26) - Date.today).to_i} days until game day, and there are
+        #{User.all.count} registered players with #{User.number_submitted} of these already submitted their picks.
+        %p
+        You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
+        - if !current_user.number1_selected?
+          and you need to pick a number 1
+        - if current_user.locked?
+          You have submitted your songs.
+        - else
+          - if current_user.ok_to_submit?
+            = link_to "Submit Your Songs", lock_user_path(current_user), confirm: "Make sure you are happy with your songs as you can't change this later. Are you sure?",
+            id: "user_lock", :class => 'btn btn-mini btn-success'
 
     .container
       - if notice
