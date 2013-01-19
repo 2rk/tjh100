@@ -17,4 +17,4 @@
           = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
       %td.actions
         - if current_user == @user && !current_user.locked?
-          .actions#remove_song= link_to "Remove", selection_path(selection.song_id), :method => :delete, :class => 'btn btn-mini btn-danger', id: "remove_pick"
+          .actions#remove_song= link_to "Unpick", selection_path(selection.song_id), :method => :delete, :class => 'btn btn-mini btn-danger', id: "remove_pick"
