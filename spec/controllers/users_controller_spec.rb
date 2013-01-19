@@ -44,7 +44,7 @@ describe UsersController do
         before { get :lock, {:id => @logged_in_user.to_param} }
 
         it "should set user to lock" do
-          response.should redirect_to(user_path(@logged_in_user))
+          response.should redirect_to(user_selections_path(@logged_in_user))
         end
       end
 
@@ -52,7 +52,7 @@ describe UsersController do
         before { get :lock, {:id => user.to_param} }
 
         it "should lock user" do
-          response.should redirect_to(user_path(user))
+          response.should redirect_to(user_selections_path(user))
         end
       end
     end
@@ -125,7 +125,7 @@ describe UsersController do
         before { get :lock, {:id => @logged_in_user.to_param} }
 
         it "should set user to lock" do
-          response.should redirect_to(user_path(@logged_in_user))
+          response.should redirect_to(user_selections_path(@logged_in_user))
         end
       end
 
