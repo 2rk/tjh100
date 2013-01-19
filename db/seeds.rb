@@ -25,14 +25,14 @@ User.all.each do |user|
 end
 
 # create some tweets randomly
-pos = 100
-Song.all.each do |song|
-  if rand(3) == 1
-    Factory(:tweet, :status => "##{pos} @#{song.artist} - '#{song.name}'", :song => song)
-    pos -=1
-  end
-  break if pos == 0
-end
+#pos = 100
+#Song.all.each do |song|
+#  if rand(3) == 1
+#    Factory(:tweet, :status => "##{pos} @#{song.artist} - '#{song.name}'", :song => song)
+#    pos -=1
+#  end
+#  break if pos == 0
+#end
 
 puts "Songs       = #{Song.count}"
 puts "Selections  = #{Selection.count}"
