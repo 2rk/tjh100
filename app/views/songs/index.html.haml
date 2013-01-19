@@ -20,7 +20,7 @@
 
   - @songs.each do |song|
     %tr
-      %td= link_to song.name, song
+      %td= link_to_if(current_user.admin?, song.name, edit_song_path(song), id: "song_link")
       %td= song.artist
       - if current_user.locked?
         %td.center= song.position

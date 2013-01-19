@@ -56,11 +56,11 @@ class UsersController < ApplicationController
 
     if current_user.admin?
       @user.update_attribute(:locked, true)
-      redirect_to @user
+      redirect_to user_selections_path(@user)
     else
       if current_user == @user
         @user.update_attribute(:locked, true)
-        redirect_to @user
+        redirect_to user_selections_path(@user)
       else
         redirect_to new_user_session_path
       end
