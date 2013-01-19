@@ -1,6 +1,8 @@
 class SongsController < ApplicationController
   before_filter :authenticate_user!
 
+  load_and_authorize_resource :song
+
   def index
     @search = Song.search(params[:search])
     @songs = @search.page(params[:page]).per(20)
