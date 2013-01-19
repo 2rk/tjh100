@@ -14,6 +14,7 @@ class Ability
       end
       can :update, User, :id => user.id
       can :read, Selection, :user_id => user.id
+      can :index, Song
     end
 
     # Define abilities for the passed in user here. For example:

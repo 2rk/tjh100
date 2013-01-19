@@ -1,5 +1,4 @@
-.container.content
-  %h1 Songs
+%h1 Songs
 
 .navbar
   .navbar-inner
@@ -14,7 +13,7 @@
     %th= sortable "artist"
     - if current_user.locked?
       %th Position
-      - if current_user.display_picks
+      - if current_user.locked?
         %th#picks_title Picks
     - else
       %td
@@ -25,7 +24,7 @@
       %td= song.artist
       - if current_user.locked?
         %td.center= song.position
-        - if current_user.display_picks
+        - if current_user.locked?
           %td.center#picks_data
             - if song.selections.length > 0
               = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)

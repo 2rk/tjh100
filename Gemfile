@@ -37,4 +37,5 @@ group :test, :development do
   #gem "cucumber-rails"
   gem "database_cleaner"
   gem "awesome_print"
+  gem "shoulda-matchers"
 end
