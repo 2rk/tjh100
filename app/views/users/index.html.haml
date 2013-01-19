@@ -1,7 +1,8 @@
-- if @song
-  %h1#song_title Who picked #{link_to @song.name_and_artist, @song}
-- else
-  %h1 Listing users
+.container.content
+  - if @song
+    %h1#song_title Who picked #{link_to @song.name_and_artist, @song}
+  - else
+    %h1 Listing players
   
 %table.table.table-striped
   %tr
