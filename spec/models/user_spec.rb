@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe User do
+
+  let(:user) { Factory(:user)}
+  let(:song) { Factory(:song)}
+
   describe ".max_selected" do
     before do
       @user_10 = Factory(:user)
@@ -48,6 +52,25 @@ describe User do
     end
     context "admin" do
       it("display picks") { Factory(:user_admin).display_picks.should be_true }
+    end
+  end
+
+  describe ".ok_to_submit?" do
+    context "no enough selected" do
+      before { user.songs = [song] }
+      it("should be false") { user.ok_to_submit?.should be_false }
+    end
+    context "40 selected" do
+      before { user.songs = FactoryGirl.create_list(:song, 40) }
+      context "#1 is not set" do
+        it("should be false") { user.ok_to_submit?.should be_false }
+      end
+      context "#1 is  set" do
+        before do
+          user.selections.first.update_attribute(:number_one, true)
+        end
+        it("should be true") { user.ok_to_submit?.should be_true }
+      end
     end
   end
 end
