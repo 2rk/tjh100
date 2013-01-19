@@ -45,4 +45,12 @@ class User < ActiveRecord::Base
   def self.number_submitted
     User.where(locked: true).count
   end
+
+  def display_name_and_submitted
+    if locked?
+      name + " (submitted)"
+    else
+      name
+    end
+  end
 end
