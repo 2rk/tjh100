@@ -6,7 +6,7 @@ class SelectionsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @selections = @user.selections
+    @selections = @user.selections.includes(:song).order("songs.name")
   end
 
   def create
