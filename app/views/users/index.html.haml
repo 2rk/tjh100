@@ -1,13 +1,16 @@
-- if @song
-  %h1#song_title Who picked #{link_to @song.name_and_artist, @song}
-- else
-  %h1 Listing users
+.container.content
+  - if @song
+    %h1#song_title Who picked #{link_to @song.name_and_artist, @song}
+  - else
+    %h1 Listing players
   
 %table.table.table-striped
   %tr
     %th Name
     %th QTY Picked
     %th Score
+    - if current_user.admin? && !@song
+      %th
 
   - @users.each do |user|
     %tr
@@ -16,6 +19,9 @@
         - if user.selections.length > 0
           = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
       %td.right= user.score
+      - if current_user.admin? && !@song
+        %td.actions
+          .actions#remove_user= link_to "Delete", user_path(user), :method => :delete, :class => 'btn btn-mini btn-danger', id: "delete_link"
 
 %br
 - if can?(:add, User) && @song.nil?

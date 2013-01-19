@@ -1,4 +1,14 @@
-%h1= "Selections for #{@user.name}"
+.container.content
+  %h1= "Selections for #{@user.name}"
+
+  %h4
+    You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
+    - if current_user.locked?
+      You have submitted your songs.
+    - else
+      - if @user.ok_to_submit?
+        = link_to "Submit Your Songs", lock_user_path(current_user), confirm: "Make sure you are happy with your songs as you can't change this later. Are you sure?",
+        id: "user_lock", :class => 'btn btn-mini btn-success'
 
 %table.table.table-striped
   %tr
@@ -11,7 +21,7 @@
       %td= link_to selection.song.name, song_path(selection.song)
       %td
         - if selection.number_one
-          ***************
+          %b #1 Pick
         - elsif current_user == @user && !current_user.locked?
           = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
       %td.actions

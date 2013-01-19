@@ -9,22 +9,25 @@
 
 %table.table.table-striped
   %tr
-    %th Name
-    %th Artist
-    %th Position
+    %th= sortable "name"
+    %th= sortable "artist"
     - if current_user.locked?
-      %th#picks_title Picks
-    %td
+      %th Position
+      - if current_user.locked?
+        %th#picks_title Picks
+    - else
+      %td
 
   - @songs.each do |song|
     %tr
-      %td= link_to_if(current_user.admin?, song.name, edit_song_path(song), id: "song_link")
+      %td= link_to song.name, song
       %td= song.artist
-      %td.center= song.position
       - if current_user.locked?
-        %td.center#picks_data
-          - if song.selections.length > 0
-            = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
+        %td.center= song.position
+        - if current_user.locked?
+          %td.center#picks_data
+            - if song.selections.length > 0
+              = link_to pluralize(song.selections.length, 'person', 'people'), song_users_path(song)
       - unless current_user.locked?
         - if @song_ids.include? song.id
           %td.actions= link_to 'Unpick', selection_path(song), :method => :delete, :class => 'btn btn-mini btn-danger', id: "change_pick"

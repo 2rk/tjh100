@@ -8,6 +8,7 @@ describe UsersController do
     Fracture.define_selector(:new, "#new_link")
     Fracture.define_selector(:song_title, "#song_title")
     Fracture.define_selector(:user_lock, "#user_lock")
+    Fracture.define_selector(:delete, "#delete_link")
   end
 
   let(:user) { Factory(:user) }
@@ -23,10 +24,12 @@ describe UsersController do
       context "un-nested" do
         before { get :index }
         it("does display new link") { response.body.should have_fracture(:new) }
+        it("does display delete link") { response.body.should have_fracture(:delete) }
       end
       context "nested" do
         before { get :index, :song_id => song_1 }
         it("does display new link") { response.body.should_not have_fracture(:new) }
+        it("does not display delete link") { response.body.should_not have_fracture(:delete) }
       end
     end
 
@@ -71,6 +74,7 @@ describe UsersController do
         it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
         it("doesnt display new link") { response.body.should_not have_fracture(:new) }
         it("doesnt display song title") { response.body.should_not have_fracture(:song_title) }
+        it("does not display delete link") { response.body.should_not have_fracture(:delete) }
       end
       context "nested" do
         it "shows all users with selected song" do
@@ -82,8 +86,8 @@ describe UsersController do
           assigns(:song).should == selection_2.song
           assigns(:users).should =~ [selection_1.user, selection_2.user]
           response.body.should_not have_fracture(:new)
+          response.body.should_not have_fracture(:delete)
           response.body.should have_fracture(:song_title)
-
         end
       end
 
@@ -94,7 +98,8 @@ describe UsersController do
         before { get :show, {:id => @logged_in_user.to_param} }
 
         it("displays edit button for owned") { response.body.should have_fracture(:edit) }
-        it("displays lock button") { response.body.should have_fracture(:user_lock) }
+        #TODO write test to create 40 selections and then you should see the button
+        it("displays lock button") { response.body.should_not have_fracture(:user_lock) }
 
       end
       context "locked" do
