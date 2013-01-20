@@ -14,7 +14,7 @@ Tjh100::Application.routes.draw do
     resources :selections, :only => :index
   end
 
-  resources :selections, :only => [:destroy, :update]
+  resources :selections, :only => [:destroy, :update, :index]
 
   root :to => "songs#index"
 

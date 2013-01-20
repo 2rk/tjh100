@@ -13,6 +13,8 @@
           = link_to 'Triple J Hottest 100', songs_path, :class => 'brand'
           %ul.nav
             %li= link_to "All Songs", songs_path
+            - if current_user.locked?
+              %li#all_selections_menu= link_to "All Selections", selections_path
             %li= link_to "My Songs", user_selections_path(current_user)
             %li= link_to "Results", tweets_path
             %li= link_to "Players", users_path

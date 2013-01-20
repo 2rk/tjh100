@@ -1,12 +1,16 @@
 class SelectionsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_and_authorize_resource :user, only: :index
-  load_and_authorize_resource :selection, through: :user, only: :index
-
   def index
-    @user = User.find(params[:user_id])
-    @selections = @user.selections.includes(:song).order("songs.name")
+    @user = User.find_by_id(params[:user_id])
+    if @user
+      authorize! :show, @user
+      authorize! :read, Selection
+      @selections = @user.selections.includes(:song).order("songs.name")
+    else
+      raise(CanCan::AccessDenied) unless current_user.locked?
+      @selections = Selection.joins(:song).group(:name).order(:name)
+    end
   end
 
   def create

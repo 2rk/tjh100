@@ -1,4 +1,5 @@
-%h1= "Selections for #{@user.name}"
+-if @user
+  %h1#user_heading= "Selections for #{@user.name}"
 
 %table.table.table-striped
   %tr
