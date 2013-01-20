@@ -13,6 +13,7 @@ gem "twitter", "2.5.0"
 gem "cancan"
 gem "fracture"
 gem "mysql2"
+gem 'honeybadger'
 
 # Gems used only for assets and not required
 # in production environments by default.
