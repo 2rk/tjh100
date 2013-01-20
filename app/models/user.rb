@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  has_many :selections
+  has_many :selections, dependent: :destroy
   has_many :songs, :through => :selections
 
   def max_selections
