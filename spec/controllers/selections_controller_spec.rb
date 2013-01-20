@@ -34,7 +34,8 @@ describe SelectionsController do
           selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
           @logged_in_user.update_attribute(:locked, true)
           get :index
-          assigns(:selections).should =~([selections_2, @selections_1].flatten)
+
+          assigns(:selections).map(&:song_id).should =~([selections_2, @selections_1].flatten.map(&:song_id))
           response.body.should_not have_fracture(:user_heading)
         end
       end
