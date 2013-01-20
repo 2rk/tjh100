@@ -6,6 +6,7 @@ describe SelectionsController do
 
   before(:all) do
     Fracture.define_selector(:user_change_picks, "#remove_pick", "#set_number_one")
+    Fracture.define_selector(:picks, "#picks_heading", "#picks_data")
   end
 
   # User
@@ -28,6 +29,7 @@ describe SelectionsController do
           end
           it("assigns all selections as @selections") { assigns(:selections).should eq(@selections_1) }
           it { response.body.should have_fracture(:user_change_picks) }
+          it { response.body.should_not have_fracture(:picks) }
         end
         context "locked" do
           before do
@@ -39,6 +41,7 @@ describe SelectionsController do
           end
           it("assigns all selections as @selections") { assigns(:selections).should eq(@selections_1) }
           it { response.body.should_not have_fracture(:user_change_picks) }
+          it { response.body.should have_fracture(:picks) }
         end
       end
       context "not owned" do
@@ -56,6 +59,8 @@ describe SelectionsController do
           selections_2 = FactoryGirl.create_list(:selection, 3, user: user_2)
           get :index, :user_id => user_2
           assigns(:selections).should eq(selections_2)
+          response.body.should have_fracture(:picks)
+
         end
       end
     end
