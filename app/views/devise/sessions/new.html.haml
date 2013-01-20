@@ -3,6 +3,7 @@
   %h3 What is it?
   What started as a bit of fun each year between a couple of friends with *cough* an excel spreadsheet *cough*, is now online!
   So, you register below and pick 40 songs that you think will poll the best on the day, not necessarily 'your' favourites.
+
 %h3 Scoring
 .textarea
   You get 1 point if a song pick comes in at position 100, working through to 100 points for the number 1 song.
@@ -61,5 +62,9 @@
       = f.submit "Sign in", :class => 'btn btn-primary'
       = link_to 'Sign up', new_user_registration_path, :class => 'btn'
 
+.textarea
+  We currently have the #{User.count} good people ready to play. They are, in order of their stage name:
+%p
+  #{User.order("name").map(&:name).join(", ")}
 .credits
   Site hacked together by Nigel and Sean, with UI enhancements by Nathan
