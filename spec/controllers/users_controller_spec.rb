@@ -9,6 +9,7 @@ describe UsersController do
     Fracture.define_selector(:song_title, "#song_title")
     Fracture.define_selector(:user_lock, "#user_lock")
     Fracture.define_selector(:delete, "#delete_link")
+    Fracture.define_selector(:show_selections, "#show_selections")
   end
 
   let(:user) { Factory(:user) }
@@ -66,31 +67,51 @@ describe UsersController do
     end
 
     describe "GET index" do
-      context "un-nested" do
-        before do
-          user
-          get :index
+      context "unlocked" do
+        context "un-nested" do
+          before do
+            user
+            get :index
+          end
+          it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
+          it("doesnt display new link") { response.body.should_not have_fracture(:new) }
+          it("doesnt display song title") { response.body.should_not have_fracture(:song_title) }
+          it("does not display delete link") { response.body.should_not have_fracture(:delete) }
+          it("does not display show selections") { response.body.should_not have_fracture(:show_selections) }
         end
-        it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
-        it("doesnt display new link") { response.body.should_not have_fracture(:new) }
-        it("doesnt display song title") { response.body.should_not have_fracture(:song_title) }
-        it("does not display delete link") { response.body.should_not have_fracture(:delete) }
-      end
-      context "nested" do
-        it "shows all users with selected song" do
-          selection_1 = Factory(:selection)
-          selection_2 = Factory(:selection, :song => selection_1.song)
-          selection_3 = Factory(:selection)
-          get :index, :song_id => selection_2.song_id
-
-          assigns(:song).should == selection_2.song
-          assigns(:users).should =~ [selection_1.user, selection_2.user]
-          response.body.should_not have_fracture(:new)
-          response.body.should_not have_fracture(:delete)
-          response.body.should have_fracture(:song_title)
+        context "nested" do
+          it "should not show user who picked song"
         end
       end
+      context "unlocked" do
+        context "un-nested" do
+          before do
+            user
+            @logged_in_user.update_attribute(:locked, true)
+            get :index
+          end
+          it("assigns all users as @users") { assigns(:users).should =~([user, @logged_in_user]) }
+          it("doesnt display new link") { response.body.should_not have_fracture(:new) }
+          it("doesnt display song title") { response.body.should_not have_fracture(:song_title) }
+          it("does not display delete link") { response.body.should_not have_fracture(:delete) }
+          it("does display show selections") { response.body.should have_fracture(:show_selections) }
 
+        end
+        context "nested" do
+          it "shows all users with selected song" do
+            selection_1 = Factory(:selection)
+            selection_2 = Factory(:selection, :song => selection_1.song)
+            selection_3 = Factory(:selection)
+            get :index, :song_id => selection_2.song_id
+
+            assigns(:song).should == selection_2.song
+            assigns(:users).should =~ [selection_1.user, selection_2.user]
+            response.body.should_not have_fracture(:new)
+            response.body.should_not have_fracture(:delete)
+            response.body.should have_fracture(:song_title)
+          end
+        end
+      end
     end
 
     describe "GET show" do
