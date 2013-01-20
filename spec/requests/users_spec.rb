@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "Users" do
 
   let(:user) { Factory(:user) }
+  let(:user_admin) { Factory(:user_admin) }
 
   context "sign-up" do
     it "should sign-up" do
@@ -80,6 +81,24 @@ describe "Users" do
         user.reload
         user.locked.should be_true
       end
+    end
+  end
+
+  context "delete user" do
+    it "removes user and there selections" do
+      login_as user_admin
+
+      user = Factory(:user)
+      song = Factory(:song)
+      user.songs = [song]
+      selection_id = user.selections.first.id
+
+      visit users_path
+      page.find("a[href='#{user_path(user)}']").click
+
+      User.where(id: user.id).should be_empty
+      Selection.where(id: selection_id).should be_empty
+      Song.where(id: song.id).should_not be_empty
     end
   end
 
