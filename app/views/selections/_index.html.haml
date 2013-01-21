@@ -19,7 +19,7 @@
           = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
       - if current_user.locked?
         %td.center#picks_data
-          - if selection.song.selections.length > 0
+          - if selection.song.selections.where(number_one: selection.number_one).length > 0
             = link_to pluralize(selection.song.selections.where(number_one: selection.number_one).length, 'person', 'people'), song_users_path(selection.song)
       %td.actions
         - if current_user == @user && !current_user.locked?

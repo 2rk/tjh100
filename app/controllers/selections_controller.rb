@@ -9,7 +9,7 @@ class SelectionsController < ApplicationController
       @selections = @user.selections.includes(:song).order("songs.name")
     else
       raise(CanCan::AccessDenied) unless current_user.locked?
-      @selections = Selection.group([:song_id, :number_one]).select([:song_id, :number_one])
+      @selections = Selection.joins(:song).group([:song_id, :number_one]).select([:song_id, :number_one]).order(:name)
     end
   end
 
