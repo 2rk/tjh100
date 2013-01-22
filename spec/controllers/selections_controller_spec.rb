@@ -9,6 +9,7 @@ describe SelectionsController do
     Fracture.define_selector(:picks, "#picks_heading", "#picks_data")
     Fracture.define_selector(:user_heading, "#user_heading")
     Fracture.define_selector(:all_selections_menu, "#all_selections_menu")
+    Fracture.define_selector(:same_selections, "#same_selections_header", "#same_selections_row")
   end
 
   # User
@@ -18,7 +19,6 @@ describe SelectionsController do
       sign_in @logged_in_user
       @request.env["HTTP_REFERER"] = root_url
     end
-
 
     describe "GET index" do
       context "unnested" do
@@ -53,6 +53,7 @@ describe SelectionsController do
             it { response.body.should_not have_fracture(:picks) }
             it { response.body.should have_fracture(:user_heading) }
             it { response.body.should_not have_fracture(:all_selections_menu) }
+            it { response.body.should_not have_fracture(:same_selections) }
           end
           context "locked" do
             before do
@@ -66,6 +67,7 @@ describe SelectionsController do
             it { response.body.should_not have_fracture(:user_change_picks) }
             it { response.body.should have_fracture(:picks) }
             it { response.body.should have_fracture(:all_selections_menu) }
+            it { response.body.should_not have_fracture(:same_selections) }
           end
         end
         context "not owned" do
@@ -84,8 +86,24 @@ describe SelectionsController do
             get :index, :user_id => user_2
             assigns(:selections).should eq(selections_2)
             response.body.should have_fracture(:picks)
-
           end
+        end
+      end
+      context "not owned" do
+        it "Should show how many matched sections" do
+          @logged_in_user.update_attribute(:locked, true)
+          user_2 = Factory(:user)
+          song_1 = Factory(:song)
+          song_2 = Factory(:song)
+          song_3 = Factory(:song)
+
+          Selection.create(user: @logged_in_user, song: song_1)
+          Selection.create(user: @logged_in_user, song: song_2)
+          Selection.create(user: user_2, song: song_2)
+          Selection.create(user: user_2, song: song_3)
+
+          get :index, :user_id => user_2
+          response.body.should have_fracture(:same_selections)
         end
       end
     end

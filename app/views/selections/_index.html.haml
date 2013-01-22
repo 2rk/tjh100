@@ -1,6 +1,9 @@
 -if @user
   %h1#user_heading= "Selections for #{@user.name}"
 
+- if @user && @user != current_user && current_user.locked?
+  %h4#same_selections_header= "You have #{(@user.selections.map(&:song_id) & current_user.selections.map(&:song_id)).count} song selections the same"
+
 %table.table.table-striped
   %tr
     %th Song
@@ -24,3 +27,6 @@
       %td.actions
         - if current_user == @user && !current_user.locked?
           .actions#remove_song= link_to "Unpick", selection_path(selection.song_id), :method => :delete, :class => 'btn btn-mini btn-danger', id: "remove_pick"
+        - if @user && @user != current_user && current_user.locked?
+          -if current_user.selections.map(&:song_id).include?(selection.song_id)
+            #same_selections_row="You picked"
