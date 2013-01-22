@@ -45,19 +45,20 @@
         = f.label :email, :class => 'control-label'
         .controls
           = f.email_field :email
-      
       .control-group
         = f.label :password, :class => 'control-label'
         .controls
           = f.password_field :password
+      - if devise_mapping.rememberable?
+        .control-group
+          = f.label :remember_me, :class => 'control-label'
+          .controls
+            = f.check_box :remember_me
+      .control-group
+        .controls
           .help-block
             = link_to "Need to reset your password?", new_password_path(:user)
-      
-      - if devise_mapping.rememberable?
-        .hide
-          = f.check_box :remember_me
-          = f.label :remember_me
-    
+
     .modal-footer
       = f.submit "Sign in", :class => 'btn btn-primary'
       = link_to 'Sign up', new_user_registration_path, :class => 'btn'
