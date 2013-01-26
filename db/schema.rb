@@ -13,19 +13,12 @@
 
 ActiveRecord::Schema.define(:version => 20130126010543) do
 
-  create_table "parties", :force => true do |t|
-    t.string   "name"
-    t.boolean  "started"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "selections", :force => true do |t|
     t.integer  "user_id"
     t.integer  "song_id"
     t.boolean  "number_one"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "selections", ["song_id"], :name => "index_selections_on_song_id"
@@ -35,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20130126010543) do
     t.string   "name"
     t.string   "artist"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tweets", :force => true do |t|
@@ -44,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20130126010543) do
     t.integer  "position"
     t.integer  "song_id"
     t.integer  "tweet_id",   :limit => 8
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   add_index "tweets", ["song_id"], :name => "index_tweets_on_song_id"
@@ -53,8 +46,8 @@ ActiveRecord::Schema.define(:version => 20130126010543) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.boolean  "admin"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"

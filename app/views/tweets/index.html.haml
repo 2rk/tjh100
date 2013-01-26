@@ -11,6 +11,6 @@
     %tr
       %td= tweet.position
       %td
-        = link_to tweet.song.name, tweet.song if tweet.song
+        = link_to tweet.song.name, song_users_path(tweet.song) if tweet.song
       %td= tweet.status
 
