@@ -7,6 +7,7 @@
 %table.table.table-striped
   %tr
     %th Name
+    %th Date submitted
     %th QTY Picked
     %th # songs
     %th Score
@@ -16,6 +17,7 @@
   - @users.each do |user|
     %tr
       %td= link_to_if current_user.locked?, user.display_name_and_submitted, user_selections_path(user), id: "show_selections"
+      %td= date_display_list user.updated_at
       %td.right
         - if user.selections.length > 0
           = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
