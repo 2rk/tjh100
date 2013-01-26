@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if @song
       @users = @song.users.order(:name)
     else
-      @users = User.order(:name).all
+      @users = User.order(:score).reverse
     end
 
 
