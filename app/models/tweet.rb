@@ -1,12 +1,17 @@
+# encoding: utf-8
 class Tweet < ActiveRecord::Base
   belongs_to :song
 
   before_validation :get_position
   before_save :match_song, :if => :is_position_tweet
-  after_save :update_song_position, :if => :song
+  before_save :update_song_position, :if => :song
   validates_presence_of :position
 
   def match_song
+
+    p "parse_song = '#{parse_song}'"
+
+
     self.song = Song.find_by_name(parse_song)
   end
 
@@ -23,6 +28,9 @@ class Tweet < ActiveRecord::Base
   end
 
   def get_position
+    puts
+    p "status = #{status}"
+    p "get_positions = #{parse_position}"
     self.position = parse_position
   end
 
@@ -31,13 +39,15 @@ class Tweet < ActiveRecord::Base
   end
 
   def parse_song
-    start_quote = status.index("- '").to_i+3
-    end_quote = status.rindex("'").to_i
+    start_quote = (status.index("– ‘") || status.index("– ‘") || status.index("- ‘") || status.index("- ‘")).to_i+3
+
+    p "start_quote = #{start_quote}"
+    end_quote = status.rindex('’').to_i
     status[start_quote...end_quote] if start_quote < end_quote
   end
 
   def self.get_feed
-    Twitter.user_timeline("triplej", count: 10).each do |tweet|
+    Twitter.user_timeline("triplej", count: 20).each do |tweet|
       Rails.logger.info "#{tweet.id} '#{tweet.text}'"
       self.create(tweet_id: tweet.id, status: tweet.text) unless find_by_tweet_id(tweet.id)
     end
