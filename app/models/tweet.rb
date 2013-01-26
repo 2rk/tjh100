@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Tweet < ActiveRecord::Base
   belongs_to :song
 
@@ -38,8 +39,8 @@ class Tweet < ActiveRecord::Base
   end
 
   def parse_song
-    start_quote = status.index("- '").to_i+3
-    end_quote = status.rindex("'").to_i
+    start_quote = status.index('- ‘').to_i+3
+    end_quote = status.rindex('’').to_i
     status[start_quote...end_quote] if start_quote < end_quote
   end
 

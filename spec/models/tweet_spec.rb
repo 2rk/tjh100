@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Tweet do
@@ -66,7 +67,7 @@ describe Tweet do
         @song_1 = Factory(:song, :name => "Feeding Line")
         @song_2 = Factory(:song, :name => "Somebody That I Used To Know (Ft. Kimbra)")
       end
-      it("is 'feeding Line'") { Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100").song.should == @song_1 }
+      it("is 'feeding Line'") { Tweet.create(status: '#4 @BoyAndBear - ‘Feeding Line’ #Hottest100').song.should == @song_1 }
       it("is 'Somebody That I Used To Know (Ft. Kimbra)'") { Tweet.create(status: "#1 @Gotye - 'Somebody That I Used To Know (Ft. Kimbra)' #Hottest100").song.should == @song_2 }
       it "should update Song position" do
         Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100")
