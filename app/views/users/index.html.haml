@@ -8,6 +8,7 @@
   %tr
     %th Name
     %th QTY Picked
+    %th # songs
     %th Score
     - if current_user.admin? && !@song
       %th
@@ -18,6 +19,7 @@
       %td.right
         - if user.selections.length > 0
           = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
+      %td.right= user.songs.where(position: 1..100).length
       %td.right= user.score
       - if current_user.admin? && !@song
         %td.actions
