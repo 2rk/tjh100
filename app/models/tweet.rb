@@ -39,7 +39,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def parse_song
-    start_quote = (status.index("– ‘") || status.index("– ‘") || status.index("- ‘") || status.index("- ‘")).to_i+3
+    start_quote = (status.index("– ‘") || status.index("– ‘") || status.index("- ‘") || status.index("- ‘") || status.index("- '")).to_i+3
 
     p "start_quote = #{start_quote}"
     end_quote = (status.rindex('’') || status.rindex("'")).to_i
