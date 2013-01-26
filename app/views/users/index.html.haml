@@ -6,15 +6,17 @@
 
 %table.table.table-striped
   %tr
+    %th pos
     %th Name
     %th QTY Picked
     %th # songs
     %th Score
     - if current_user.admin? && !@song
       %th
-
+  - pos = 1
   - @users.each do |user|
     %tr
+      %td= pos
       %td= link_to_if current_user.locked?, user.display_name_and_submitted, user_selections_path(user), id: "show_selections"
       %td.right
         - if user.selections.length > 0
@@ -24,7 +26,7 @@
       - if current_user.admin? && !@song
         %td.actions
           .actions#remove_user= link_to "Delete", user_path(user), :method => :delete, :class => 'btn btn-mini btn-danger', id: "delete_link"
-
+      - pos += 1
 %br
 - if can?(:add, User) && @song.nil?
   = link_to 'New User', new_user_path, id: "new_link"
