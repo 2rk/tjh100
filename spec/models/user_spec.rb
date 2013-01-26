@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { Factory(:user)}
-  let(:song) { Factory(:song)}
+  let(:user) { Factory(:user) }
+  let(:song) { Factory(:song) }
 
   describe ".max_selected" do
     before do
@@ -42,6 +42,50 @@ describe User do
     it "#recalculate_scores" do
       User.recalculate_scores
       @user_10.reload.score.should == 22
+    end
+  end
+
+
+  describe ".calculate_number1" do
+    before do
+      @user_10 = FactoryGirl.create(:user)
+      @user_20 = FactoryGirl.build(:user)
+      @user_30 = FactoryGirl.build(:user)
+      @song_1 = Factory(:song, position: 100)
+      @song_2 = Factory(:song, position: 5)
+      @song_3 = Factory(:song, position: 1)
+      Factory(:selection, user: @user_10, song: @song_1)
+      @selection_1 = Factory(:selection, user: @user_10, song: @song_3 )
+      Factory(:selection, user: @user_20, song: @song_1)
+      Factory(:selection, user: @user_20, song: @song_2, number_one: true)
+      Factory(:selection, user: @user_10, song: @song_2)
+      Factory(:selection, user: @user_30, song: @song_1)
+      Factory(:selection, user: @user_30, song: @song_2)
+    end
+
+    it "1 person picked and not number one" do
+      User.calculate_number1
+      @user_10.reload.score.should == 0
+      @user_20.reload.score.should == 50
+    end
+    it "1 person picked and was number one" do
+      @selection_1.update_attribute(:number_one, true)
+      User.calculate_number1
+      @user_10.reload.score.should == 50
+      @user_20.reload.score.should == 0
+    end
+    it "2 people picked and #1" do
+      Factory(:selection, user: @user_10, song: @song_3, number_one: true)
+      User.calculate_number1
+      @user_10.reload.score.should == 50
+      @user_20.reload.score.should == 50
+    end
+    it "2 people picked not #1 and one other not highest" do
+      Factory(:selection, user: @user_10, song: @song_2, number_one: true)
+      User.calculate_number1
+      @user_10.reload.score.should == 50
+      @user_20.reload.score.should == 50
+      @user_30.reload.score.should == 0
     end
   end
 
