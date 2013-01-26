@@ -8,6 +8,7 @@
   %tr
     %th Song
     %th Number one
+    %th Position
     %th Points
     - if current_user.locked?
       %th#picks_heading Picks
@@ -23,6 +24,8 @@
           = link_to "Set as #1", selection, :method => :put, :id => "set_number_one", :class => 'btn btn-mini'
       %td
         =selection.song.position
+      %td
+        =selection.song.points
       - if current_user.locked?
         %td.center#picks_data
           - if selection.song.selections.where(number_one: selection.number_one).length > 0

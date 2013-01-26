@@ -15,6 +15,10 @@ class Song < ActiveRecord::Base
     "#{name} - #{artist}"
   end
 
+  def points
+    101 - position if position
+  end
+
   def self.scrape_songs
     require 'open-uri'
     for i in 0..26
