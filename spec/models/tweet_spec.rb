@@ -65,12 +65,12 @@ describe Tweet do
     context ".match_song" do
       before do
         @song_1 = Factory(:song, :name => "Fineshrine")
-        @song_2 = Factory(:song, :name => "Somebody That I Used To Know (Ft. Kimbra)")
+        @song_2 = Factory(:song, :name => "Somebody That I Used's To Know (Ft. Kimbra)")
         @song_3 = Factory(:song, :name => "a song {featuring someone}")
       end
       it("is 'feeding Line'") { Tweet.create(status: "#85 @PURITY_RING – ‘Fineshrine’ #Hottest100").song.should == @song_1 }
       it("is 'feeding Line'") { Tweet.create(status: "#85 @PURITY_RING – ‘a song’ #Hottest100").song.should == @song_3 }
-      it("is 'Somebody That I Used To Know (Ft. Kimbra)'") { Tweet.create(status: "#1 @Gotye - 'Somebody That I Used To Know (Ft. Kimbra)' #Hottest100").song.should == @song_2 }
+      it("is 'Somebody That I Used To Know (Ft. Kimbra)'") { Tweet.create(status: "#1 @Gotye - 'Somebody That I Used's To Know (Ft. Kimbra)' #Hottest100").song.should == @song_2 }
       it "should update Song position" do
         Tweet.create(status: "#4 @BoyAndBear - 'Feeding Line' #Hottest100")
         @song_1.reload.position.should == 4
