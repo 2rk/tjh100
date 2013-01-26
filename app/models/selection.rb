@@ -1,5 +1,7 @@
 class Selection < ActiveRecord::Base
   SELECTION_QTY = 40
+  NUMBER1_BONUS = 50
+
   belongs_to :user
   belongs_to :song
 

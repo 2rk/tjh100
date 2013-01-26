@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
     User.all.each do |user|
       user.calculate_score
     end
+    if Song.find_by_position(1)
+      calculate_number1
+    end
   end
 
   def calculate_score
@@ -53,4 +56,32 @@ class User < ActiveRecord::Base
       name
     end
   end
+
+  def self.calculate_number1
+
+    top_hit = Selection.joins(:song).where(number_one: true).order(:position).first
+
+    Selection.where(number_one: true, song_id: top_hit.song_id).each do |selection|
+      p selection.user
+      selection.user.update_attribute(:score, selection.user.score + Selection::NUMBER1_BONUS )
+    end
+
+
+
+
+    #for i in 1..100
+    #  song = Song.find_by_position(i)
+    #  selections = Selection.where(:song_id => song, :number_one => true)
+    #  #p song
+    #  #p selections
+    #  if selections
+    #    selections.each do |selection|
+    #      #p selection
+    #      selection.user.score += Selection::NUMBER1_BONUS
+    #    end
+    #    break
+    #  end
+    #end
+  end
+
 end
