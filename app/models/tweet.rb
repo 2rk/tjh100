@@ -42,12 +42,13 @@ class Tweet < ActiveRecord::Base
     start_quote = (status.index("– ‘") || status.index("– ‘") || status.index("- ‘") || status.index("- ‘")).to_i+3
 
     p "start_quote = #{start_quote}"
-    end_quote = status.rindex('’').to_i
+    end_quote = (status.rindex('’') || status.rindex("'")).to_i
+    p "end_quote = #{end_quote}"
     status[start_quote...end_quote] if start_quote < end_quote
   end
 
   def self.get_feed
-    Twitter.user_timeline("triplej", count: 20).each do |tweet|
+    Twitter.user_timeline("triplej", count: 30).each do |tweet|
       Rails.logger.info "#{tweet.id} '#{tweet.text}'"
       self.create(tweet_id: tweet.id, status: tweet.text) unless find_by_tweet_id(tweet.id)
     end
