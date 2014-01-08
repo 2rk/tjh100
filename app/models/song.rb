@@ -22,14 +22,16 @@ class Song < ActiveRecord::Base
   def self.scrape_songs
     require 'open-uri'
     for i in 0..26
-      url = "http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=96&IX=0&IG=#{i}"
+      url = "http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=106&IX=0&IG=#{i}"
       doc = Nokogiri::HTML(open(url))
 
       list = doc.at("div .IndexPageContent")
       list = list.at("p")
 
       list.css("span .artist").each do |item|
-        Song.create(name:item.next_element.next_element.text.strip, artist: item.text.strip )
+        #Song.create(name:item.next_element.next_element.text.strip, artist: item.text.strip )
+        p item.next_element.next_element.text.strip
+        p item.text.strip
       end
     end
   end
