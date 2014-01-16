@@ -14,15 +14,15 @@ Tweet.delete_all
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
 Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret", admin: true)
 
-users = FactoryGirl.create_list(:user,3)
+#users = FactoryGirl.create_list(:user,3)
 Song.scrape_songs
 
 # add random selections
-User.all.each do |user|
-  Song.all.each do |song|
-    Factory(:selection, song: song, user: user) if rand(3) == 1 && user.selections.count < Selection::SELECTION_QTY
-  end
-end
+#User.all.each do |user|
+#  Song.all.each do |song|
+#    Factory(:selection, song: song, user: user) if rand(3) == 1 && user.selections.count < Selection::SELECTION_QTY
+#  end
+#end
 
 # create some tweets randomly
 #pos = 100
