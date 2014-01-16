@@ -2,14 +2,14 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem "pg"
+#gem "pg"
 gem 'json'
 gem "haml-rails"
 gem "kaminari"
 gem "kaminari-bootstrap"
 gem "meta_search"
 gem "devise", "2.0.0"
-gem "twitter", "2.5.0"
+#gem "twitter", "2.5.0"
 gem "cancan"
 gem "fracture"
 gem "mysql2"
