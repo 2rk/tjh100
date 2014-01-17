@@ -15,30 +15,30 @@
     get to see everyone else's picks.
 
     You can check out the full listing by
-    %a{ :href => 'https://docs.google.com/file/d/0B5YpmZvL193jSWE0Y2JVWldZb28/edit' }
+    %a{ :href => 'http://www.abc.net.au/triplej/hottest100/13/pdf/track_print.pdf', :target => '_blank' }
       song
     or
-    %a{ :href => 'https://docs.google.com/file/d/0B5YpmZvL193jZjQ5ZlhPNVVZRjQ/edit' }
+    %a{ :href => 'http://www.abc.net.au/triplej/hottest100/13/pdf/artist_print.pdf', :target => '_blank' }
       artist
     and hear the tracks on
-    %a{ :href => 'http://open.spotify.com/user/triple.j.abc/playlist/3xbVLD7QASeqUcol6bnqip' }
+    %a{ :href => 'http://open.spotify.com/user/triple.j.abc/playlist/0sGSHM65E2DlvjKaGKug9z', :target => '_blank' }
       Spotify
     or
-    %a{ :href => 'http://www.rdio.com/people/triplej/playlists/1870242/Hottest_100_2012_Candidates/' }
+    %a{ :href => 'http://www.rdio.com/people/triplej/playlists/7578238/triple_j%27s_Hottest_100_2013_Candidates/', :target => '_blank' }
       Rdio.
 
 %p
   .textarea
-    Last year's leaderboard can be seen
-    %a{ :href => '/2013_leaderboard.html.haml' }
+    Last year's winner was Ryan and the leaderboard can be seen
+    %a{ :href => '/2013_leaderboard.html', :target => '_blank' }
       here
 %p
   .textarea
     Sign up, and have some fun!  Feel free to pass on the link to your friends, though this was a quick hack, and can hopefully
-    handle more than 3 users :)  There will be more functionality added during the week to compare your picks with others.
+    handle more than 3 users :)
 %p
   .textarea
-    Beware BETA code warning!!! Things will no doubt break, and we are running on a free server, so shoot me an email if you have any issues, or wish to see something added to sean [at] kiiii [dot] com
+    Beware BETA code warning!!! Things will no doubt break, and we are running on a free server, so shoot me an email if you have any issues, or wish to see something added to sean.kelly [at] tworedkites [dot] com
 
 .modal.full-height
   = form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' } do |f|
@@ -74,3 +74,6 @@
   #{User.order("name").map(&:name).join(", ")}
 .credits
   Site hacked together by Nigel and Sean, with UI enhancements by Nathan
+%p.center
+  %a{ :href => 'http://tworedkites.com', :target => '_blank' }
+    = image_tag("2rk.png", :alt => "two red kites", :size => "425x95")
