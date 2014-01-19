@@ -7,6 +7,10 @@ class Selection < ActiveRecord::Base
 
   before_update :toggle_number_one
 
+  def total_songs_selected
+    Selection.all.map(&:song_id).uniq.count
+  end
+
   private
 
   def toggle_number_one

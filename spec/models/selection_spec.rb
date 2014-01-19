@@ -24,4 +24,19 @@ describe Selection do
       it("should not unset other users number_one") { @selection_22.reload.number_one.should be_true }
     end
   end
+
+  describe "total number of different songs selected" do
+    before do
+      @user_10 = Factory(:user)
+      @user_20 = Factory(:user)
+      @selection_11 = Factory(:selection, user: @user_10, number_one: true)
+      @song1 = @selection_11.song
+      @selection_12 = Factory(:selection, user: @user_10)
+      @selection_13 = Factory(:selection, song: @song1, user: @user_10)
+      @selection_21 = Factory(:selection, user: @user_20)
+      @selection_22 = Factory(:selection, song: @song1, user: @user_20, number_one: true)
+    end
+
+    it('should return return 3 different songs selected') {@selection_11.total_songs_selected.should == 3}
+  end
 end
