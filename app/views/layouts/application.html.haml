@@ -30,7 +30,7 @@
         - if !current_user.number1_selected?
           and you need to pick a number 1
         - if current_user.locked?
-          and you have submitted your songs.
+          and you have submitted your songs. There are a total of #{Selection.all.map(&:song_id).uniq.count} different songs selected
         - else
           - if current_user.ok_to_submit?
             = link_to "Submit Your Songs", lock_user_path(current_user), confirm: "Make sure you are happy with your songs as you can't change this later. Are you sure?",
