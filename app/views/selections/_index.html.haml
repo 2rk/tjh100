@@ -3,8 +3,8 @@
 
 - if @user && @user != current_user && current_user.locked?
   %h4#same_selections_header= "You have #{(@user.selections.map(&:song_id) & current_user.selections.map(&:song_id)).count} song selections the same"
-
-There are a total of #{Selection.all.map(&:song_id).uniq.count} different songs selected
+%p
+  There are a total of #{Selection.all.map(&:song_id).uniq.count} different songs selected
 
 %table.table.table-striped
   %tr
