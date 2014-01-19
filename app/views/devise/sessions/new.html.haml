@@ -72,7 +72,7 @@
   We currently have the #{User.count} good people ready to play. They are, in order of their stage name:
 %p
   #{User.order("name").map(&:name).join(", ")}
-  They have picked a total of #{Selection.total_songs_selected} different songs so far
+  -#They have picked a total of #{Selection.total_songs_selected} different songs so far
 .credits
   Site hacked together by Nigel and Sean, with UI enhancements by Nathan
 %p.center
