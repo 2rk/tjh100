@@ -26,13 +26,15 @@ class Song < ActiveRecord::Base
       doc = Nokogiri::HTML(open(url))
 
       list = doc.at("div .IndexPageContent")
-      list = list.at("p")
+      if list
+        list = list.at("p")
 
-      list.css("span .artist").each do |item|
-        unless item.next_element.next_element.next_element.attribute('data-hash').value.blank?
-          Song.create(name:item.next_element.next_element.text.strip, artist: item.text.strip )
-          #p item.next_element.next_element.text.strip
-          #p item.text.strip
+        list.css("span .artist").each do |item|
+          unless item.next_element.next_element.next_element.attribute('data-hash').value.blank?
+            Song.create(name: item.next_element.next_element.text.strip, artist: item.text.strip)
+            #p item.next_element.next_element.text.strip
+            #p item.text.strip
+          end
         end
       end
     end
