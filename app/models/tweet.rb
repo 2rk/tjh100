@@ -48,9 +48,18 @@ class Tweet < ActiveRecord::Base
   end
 
   def self.get_feed
-    Twitter.user_timeline("triplej", count: 10).each do |tweet|
+    twitter_client.user_timeline("triplej", count: 10).each do |tweet|
       Rails.logger.info "#{tweet.id} '#{tweet.text}'"
       self.create(tweet_id: tweet.id, status: tweet.text) unless find_by_tweet_id(tweet.id)
+    end
+  end
+
+  def self.twitter_client
+    @twitter_client ||= Twitter::REST::Client.new do |config|
+      config.consumer_key        = "Uy44ZctfJPlGL7YzRAHmlg"
+      config.consumer_secret     = "DndnkaisS7CqocOGe6So2fELKntFNWayNY1krAAMaw"
+      config.access_token        = "12917662-CE7vIRrohgwqDIBSogMQg8E4zma5BWmhaLy5K9gjI"
+      config.access_token_secret = "wXYxKUyZpA2JfZu2fhtCRn8YEEdRRWmJfJlqpZAvvIp4E"
     end
   end
 end
