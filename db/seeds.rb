@@ -14,8 +14,16 @@ Tweet.delete_all
 Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
 Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret", admin: true)
 
+#Song.scrape_songs
+
+############################################################
+#  Remove the following section before running in production
+############################################################
+
 #users = FactoryGirl.create_list(:user,3)
-Song.scrape_songs
+
+songs = []
+50.times { songs << Factory(:song, :name => Faker::Name.last_name) }
 
 # add random selections
 #User.all.each do |user|
