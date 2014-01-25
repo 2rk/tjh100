@@ -1,2 +1,10 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+Before making the app available for picks, check the scrape_songs as Jan 14 comp,
+triple J had some phantom songs that come back in the scrap but were hidden on
+their website with css
+
+Also comment out the seed data that is used locally to test, it is commented in
+seeds.rb
+
+The free version of heroku has a max number of db inserts allowed, and it may be
+easier to run the scrape process from the console
