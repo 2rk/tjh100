@@ -48,7 +48,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def self.get_feed
-    twitter_client.user_timeline("triplej", count: 100).each do |tweet|
+    twitter_client.user_timeline("triplej", count: 2).each do |tweet|
       Rails.logger.info "#{tweet.id} '#{tweet.text}'"
       self.create(tweet_id: tweet.id, status: tweet.text) unless find_by_tweet_id(tweet.id)
     end
