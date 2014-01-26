@@ -12,7 +12,7 @@ class Tweet < ActiveRecord::Base
     p "parse_song = '#{parse_song}'"
 
 
-    self.song = Song.where("name like ?", "#{parse_song}%").first
+    self.song = Song.order('char_length(name) desc').where("name like ?", "#{parse_song}%").first
   end
 
   def update_song_position
@@ -29,7 +29,7 @@ class Tweet < ActiveRecord::Base
 
   def get_position
     puts
-    p "status = #{status}"
+    p "status = '#{status}'"
     p "get_positions = #{parse_position}"
     self.position = parse_position
   end
@@ -48,7 +48,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def self.get_feed
-    twitter_client.user_timeline("triplej", count: 10).each do |tweet|
+    twitter_client.user_timeline("triplej", count: 100).each do |tweet|
       Rails.logger.info "#{tweet.id} '#{tweet.text}'"
       self.create(tweet_id: tweet.id, status: tweet.text) unless find_by_tweet_id(tweet.id)
     end
