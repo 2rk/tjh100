@@ -9,6 +9,7 @@
   %tr
     %th Position
     %th Song
+    %th Artist
     %th Picks
     %th Tweet
 
@@ -17,6 +18,8 @@
       %td= tweet.position
       %td
         = link_to tweet.song.name, song_users_path(tweet.song) if tweet.song
+      %td
+        = link_to tweet.song.artist, song_users_path(tweet.song) if tweet.song
       %td= tweet.song.selections.length if tweet.song
       %td= tweet.status
 
