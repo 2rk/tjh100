@@ -12,7 +12,7 @@ class Tweet < ActiveRecord::Base
     p "parse_song = '#{parse_song}'"
 
 
-    self.song = Song.order('char_length(name) desc').where("name like ?", "#{parse_song}%").first
+    self.song = Song.order('char_length(name)').where("name like ?", "#{parse_song}").first
   end
 
   def update_song_position
