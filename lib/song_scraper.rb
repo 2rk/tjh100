@@ -19,7 +19,18 @@ class SongScraper
         title = container.find(".secondary-type").text
         song =  Song.create(name: title, artist: artist)
         song
+        # puts "#{artist} - #{title}"
       end
+    end
+    #grab the 'numbers' songs
+    url = "https://hottest100.triplej.net.au/artist/start/%23"
+    visit url
+    all(".textContainer").each do |container|
+      artist = container.find(".text").text
+      title = container.find(".secondary-type").text
+      song =  Song.create(name: title, artist: artist)
+      song
+      # puts "#{artist} - #{title}"
     end
   end
 end
