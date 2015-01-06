@@ -19,10 +19,11 @@ class Song < ActiveRecord::Base
     101 - position if position
   end
 
+  # TODO: seank remove the below, now housed in lib/song_scraper.rb
   def self.scrape_songs
     require 'open-uri'
     for i in 0..26
-      url = "http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=106&IX=0&IG=#{i}"
+      url = "https://hottest100.triplej.net.au/artist/start/#{i}"
       doc = Nokogiri::HTML(open(url))
 
       list = doc.at("div .IndexPageContent")

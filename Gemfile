@@ -27,6 +27,9 @@ end
 gem 'jquery-rails'
 gem 'nokogiri'
 
+# Phantom JS headless browser scraping of angular sites
+gem 'poltergeist'
+
 #TODO moved to prod so seed.rb will work
 gem "factory_girl_rails", "1.6.0"
 gem "faker"
