@@ -11,8 +11,8 @@ Selection.delete_all
 Song.delete_all
 Tweet.delete_all
 
-Factory(:user, :name => "Nigel", :email => "nigel@rausch.com.au", :password => "secret")
-Factory(:user, :name => "Sean", :email => "sean@kiiii.com", :password => "secret", admin: true)
+Factory(:user, :name => "Nigel", :email => "nigel.rausch@tworedkites.com", :password => "secret")
+Factory(:user, :name => "Sean", :email => "sean.kelly@tworedkites.com", :password => "secret", admin: true)
 
 #Song.scrape_songs
 
