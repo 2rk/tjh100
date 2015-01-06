@@ -34,6 +34,8 @@ gem 'poltergeist'
 gem "factory_girl_rails", "1.6.0"
 gem "faker"
 
+gem 'capistrano', '~> 2.0'
+gem 'rvm-capistrano', '~> 1.4.4'
 
 group :test, :development do
   #gem 'sqlite3'
