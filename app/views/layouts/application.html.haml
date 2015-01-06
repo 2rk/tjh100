@@ -23,7 +23,7 @@
             - if current_user.admin?
               %li= link_to "Switch to Game Day", id: "game_day"
       .container.content
-        Welcome #{current_user.name}, There are #{(Date.new(2014, 1, 26) - Date.today).to_i} days until game day, and there are
+        Welcome #{current_user.name}, There are #{(Date.new(2015, 1, 26) - Date.today).to_i} days until game day, and there are
         #{User.all.count} registered players with #{User.number_submitted} of these already submitted their picks.
         %p
         You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
@@ -39,8 +39,6 @@
     .container
       - if notice
         .alert.alert-info= notice
-        
       - if alert
         .alert= alert
-        
       = yield
