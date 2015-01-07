@@ -25,5 +25,5 @@ production:
   database: tjh100_production
   pool: 5
   username: root
-  password: tw0r3dk1t3s
+  password:
   socket: /var/run/mysqld/mysqld.sock

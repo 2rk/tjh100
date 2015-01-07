@@ -1,6 +1,6 @@
 set :rails_env, 'production'
 
-set :rvm_ruby_string, "2.1.1"
+set :rvm_ruby_string, "2.1.5"
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 
 set :rvm_install_ruby_params, '--verify-downloads 1'
@@ -20,7 +20,7 @@ server 'eserver1.tworedkites.com', :web, :app, :db, primary: true
 # set :hostnames, "shop.lifecellaustralia.com.au"
 # set :redirect_hostnames, ["shop.lifecellaustralia.com"]
 
-before 'deploy:setup', 'rvm:install_rvm' # update RVM
+# before 'deploy:setup', 'rvm:install_rvm' # update RVM
 before 'deploy:setup', 'rvm:install_ruby'
 
 after 'deploy:update_code' do
