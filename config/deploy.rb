@@ -9,7 +9,7 @@ require 'active_support/core_ext'
 
 set :application, 'tjh100'
 set :stages, %w(integ, uat, production)
-set :default_stage, "integ"
+set :default_stage, "production"
 set :user, 'tjh100'
 set :repository, 'git@github.com:2rk/tjh100.git'
 set (:deploy_to) { "/home/#{user}/apps/#{rails_env}" }
@@ -54,7 +54,6 @@ namespace :deploy do
 
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/products #{release_path}/public/spree/products"
   end
 
   after 'deploy:update_code', 'deploy:symlink_shared'
@@ -75,50 +74,17 @@ namespace :deploy do
   task :nginx_conf do
     set :nginx_conf_file, "/opt/nginx/conf/servers/#{application}_#{stage}.conf"
 
-    ssl_conf = <<ssl_conf
-  ssl on;
-  ssl_certificate #{ssl_certificates_path}/#{ssl_certificates_name}.crt;
-  ssl_certificate_key #{ssl_certificates_path}/#{ssl_certificates_name}.key;
-  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-
-  passenger_set_cgi_param HTTPS on;
-  passenger_set_cgi_param SSL_CLIENT_S_DN $ssl_client_s_dn;
-  passenger_set_cgi_param SSL_CLIENT_VERIFY $ssl_client_verify;
-
-  passenger_set_cgi_param HTTP_X_FORWARDED_PROTO https;
-}
-
-server {
-  listen      443;
-  server_name #{redirect_hostnames.join(' ')};
-  return      301  https://#{hostnames}$request_uri;
-  ssl_certificate #{ssl_certificates_path}/#{redirect_ssl_certificates_name}.crt;
-  ssl_certificate_key #{ssl_certificates_path}/#{redirect_ssl_certificates_name}.key;
-}
-
-server {
-  listen      80;
-  server_name #{redirect_hostnames.join(' ')};
-  return      301  https://#{hostnames}$request_uri;
-}
-
-server {
-  listen      80;
-  server_name #{hostnames};
-  return      301  https://#{hostnames}$request_uri;
-ssl_conf
 
     conf = <<conf
 server {
   listen #{ssl ? 443 : 80};
-  server_name #{user}.#{stage}.tworedkites.com #{hostnames};
+  server_name #{user}.tworedkites.com;
   root /home/#{user}/apps/#{stage}/current/public;
   passenger_enabled on;
   passenger_ruby /usr/local/rvm/bin/#{application}_ruby;
   rack_env production;
   client_max_body_size 10m;
 
-#{ssl_conf}
 }
 conf
 
@@ -176,25 +142,3 @@ before 'deploy:cold', 'deploy:create_shared_database_config' #,'deploy:symlink'
 
 ### EXTRAS
 
-namespace :product_images do
-  desc "Creates product_images folders unless they exist"
-  task :setup, except: { no_release: true } do
-    dirs = image_dirs.map { |d| File.join(shared_path, d) }
-    run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"
-  end
-
-  desc "[internal] Creates the symlink to logos shared folder, for the most recently deployed version."
-  task :symlink, :except => { :no_release => true } do
-    run "rm -rf #{release_path}/public/spree/products"
-    run "ln -nfs #{shared_path}/spree/products #{release_path}/public/spree/products"
-  end
-
-  desc "[internal] Computes logos directory paths, and registers them in Capistrano environment."
-  task :register_dirs do
-    set :image_dirs,    %w(spree/products)
-    set :shared_children, fetch(:shared_children) + fetch(:image_dirs)
-  end
-
-  after       "deploy:finalize_update", "product_images:symlink"
-  on :start,  "product_images:register_dirs"
-end
