@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 gem 'json'
 gem "haml-rails"
 gem "kaminari"
-gem "kaminari-bootstrap"
+gem 'kaminari-bootstrap', '~> 0.1.3'
 gem "meta_search"
 gem "devise", "2.0.0"
 #gem "twitter", "2.5.0"
