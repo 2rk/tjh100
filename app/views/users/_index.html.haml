@@ -1,0 +1,47 @@
+.container.content
+  - if @song
+    %h1#song_title Who picked #{link_to @song.name_and_artist, @song}
+  - else
+    %h1 Player Listing
+
+%table.table.table-striped
+  %tr
+    %th pos
+    %th Name
+    %th QTY Picked
+    %th # songs
+    %th Score
+    - if current_user.admin? && !@song
+      %th
+  - pos = 1
+  - @users.each do |user|
+    %tr
+      %td= pos
+      %td= link_to_if current_user.locked?, user.display_name_and_submitted, user_selections_path(user), id: "show_selections"
+      %td.right
+        - if user.selections.length > 0
+          = link_to_if((can? :show, user), pluralize(user.selections.length, 'selection'), user_selections_path(user))
+      %td.right= user.songs.where(position: 1..100).length
+      %td.right= user.score
+      - if current_user.admin? && !@song
+        %td.actions
+          .actions#remove_user= link_to "Delete", user_path(user), :method => :delete, :class => 'btn btn-mini btn-danger', id: "delete_link"
+      - if @guest
+        %td.actions
+          .actions= link_to "Add", party_guests_path(@party, user_id: user), :method => :post, :class => 'btn btn-mini btn-danger'
+      - else
+        - if @party
+          %td.actions
+            .actions= link_to "Delete", party_guest_path(@party, user), :method => :delete, :class => 'btn btn-mini btn-danger'
+
+      - pos += 1
+%br
+- if can?(:add, User) && @song.nil?
+  = link_to 'New User', new_user_path, id: "new_link"
+
+
+- if @party && !@guest
+  = link_to 'Add Guests', party_guests_path(@party)
+
+- if @guest
+  = link_to 'Party Guests', party_users_path(@party)
