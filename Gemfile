@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 gem 'json'
 gem "haml-rails"
 gem "kaminari"
-gem "kaminari-bootstrap"
+gem 'kaminari-bootstrap', '~> 0.1.3'
 gem "meta_search"
 gem "devise", "2.0.0"
 #gem "twitter", "2.5.0"
@@ -15,6 +15,9 @@ gem "fracture"
 gem "mysql2"
 gem 'honeybadger'
 gem 'twitter', '~> 5.0'
+
+# JSruntime
+gem 'therubyracer', platforms: :ruby
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,6 +37,8 @@ gem 'poltergeist'
 gem "factory_girl_rails", "1.6.0"
 gem "faker"
 
+gem 'capistrano', '~> 2.0'
+gem 'rvm-capistrano', '~> 1.4.4'
 
 group :test, :development do
   #gem 'sqlite3'
