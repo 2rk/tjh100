@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :selections, dependent: :destroy
   has_many :songs, :through => :selections
+  has_many :guests
 
   def max_selections
     selections.count >= Selection::SELECTION_QTY

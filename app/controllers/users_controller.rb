@@ -3,14 +3,19 @@ class UsersController < ApplicationController
 
   def index
     @song = Song.find_by_id(params[:song_id])
-    if @song
-      @users = @song.users.order(:name)
-    else
-      @users = User.order(:score).reverse
+    @party = Party.find_by_id(params[:party_id])
+    case
+
+      when @song
+        @users = @song.users.order(:name)
+      when @party
+        @users = @party.users.order(:name)
+      else
+        @users = User.order(:score).reverse
     end
-
-
   end
+
+
 
   def show
     @user = User.find(params[:id])

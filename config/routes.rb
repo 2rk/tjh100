@@ -1,5 +1,13 @@
 Tjh100::Application.routes.draw do
 
+
+
+  resources :parties do
+    resources :guests, only: [:index, :create, :destroy]
+    resources :users, only: :index
+  end
+
+
   resources :tweets
 
   devise_for :users
