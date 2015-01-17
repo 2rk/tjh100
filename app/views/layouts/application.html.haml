@@ -23,6 +23,8 @@
             - if current_user.admin?
               %li= link_to "Switch to Game Day", id: "game_day"
       .container.content
+        %h3
+          Submissions of picks stops Sunday 18 Jan 8:00 PM
         Welcome #{current_user.name}, There are #{(Date.new(2015, 1, 26) - Date.today).to_i} days until game day, and there are
         #{User.all.count} registered players with #{User.number_submitted} of these already submitted their picks.
         %p
