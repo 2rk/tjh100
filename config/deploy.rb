@@ -3,7 +3,7 @@ require 'rvm/capistrano'
 require 'capistrano/ext/multistage'
 # require "dotenv/capistrano"
 # require 'airbrake/capistrano'
-# require 'whenever/capistrano'
+require 'whenever/capistrano'
 # require 'hipchat/capistrano2'
 require 'active_support/core_ext'
 
@@ -19,10 +19,10 @@ set :scm, 'git'
 set :rails_env, 'production'
 set :ssl, false
 
-# set :whenever_command, "bundle exec whenever"
-# set :whenever_environment, defer { stage }
-# set :whenever_variables, defer { "'environment=#{rails_env}&log_path=#{shared_path}'" }
-# set :whenever_identifier, defer { "#{application}_#{stage}" }
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+set :whenever_variables, defer { "'environment=#{rails_env}&log_path=#{shared_path}'" }
+set :whenever_identifier, defer { "#{application}_#{stage}" }
 
 set :rvm_ruby_string, File.read(".ruby-version").chomp
 set :rvm_type, :system
@@ -34,9 +34,9 @@ set :bundle_flags, "--deployment"
 
 # ## WHENEVER
 #
-# set :whenever_variables, defer { "'environment=#{rails_env}&log_path=#{shared_path}'" }
-# set :whenever_identifier, defer { "#{application}_#{stage}" }
-# set :whenever_command, "bin/whenever"
+#set :whenever_variables, defer { "'environment=#{rails_env}&log_path=#{shared_path}'" }
+#set :whenever_identifier, defer { "#{application}_#{stage}" }
+#set :whenever_command, "bin/whenever"
 
 ## HIPCHAT
 
