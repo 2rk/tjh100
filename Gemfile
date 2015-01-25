@@ -15,6 +15,7 @@ gem "fracture"
 gem "mysql2"
 gem 'honeybadger'
 gem 'twitter', '~> 5.0'
+gem 'whenever', :require => false
 
 # JSruntime
 gem 'therubyracer', platforms: :ruby
