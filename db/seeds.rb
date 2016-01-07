@@ -15,6 +15,7 @@ Factory(:user, :name => "Nigel", :email => "nigel.rausch@tworedkites.com", :pass
 Factory(:user, :name => "Sean", :email => "sean.kelly@tworedkites.com", :password => "secret", admin: true)
 
 #Song.scrape_songs
+Song.import_songs
 
 ############################################################
 #  Remove the following section before running in production
@@ -22,8 +23,8 @@ Factory(:user, :name => "Sean", :email => "sean.kelly@tworedkites.com", :passwor
 
 #users = FactoryGirl.create_list(:user,3)
 #
-songs = []
-50.times { songs << Factory(:song, :name => Faker::Name.last_name) }
+# songs = []
+# 50.times { songs << Factory(:song, :name => Faker::Name.last_name) }
 
 # add random selections
 #User.all.each do |user|
