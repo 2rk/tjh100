@@ -46,7 +46,7 @@ class Song < ActiveRecord::Base
   #Change with website in 2016 has the punter having to authenticate first
   def self.import_songs
     CSV.foreach("db/tjh100_2016.csv") do |line|
-      Song.create(name: line[0].strip, artist: line[1].strip)
+      Song.create(name: line[1].strip, artist: line[0].strip)
     end
   end
 end
