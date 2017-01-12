@@ -5,6 +5,8 @@ server 'tserver1.tworedkites.com', user: 'deploy', roles: %w{web app db}, port: 
 
 set :bundle_flags, "--deployment"
 
+set :keep_releases, 1
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

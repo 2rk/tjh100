@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 # gem 'activerecord-mysql2-adapter'
-#gem "pg"
+gem "pg"
 gem 'json', '1.8.3'
 gem "haml-rails"
 gem "kaminari"
@@ -12,7 +12,7 @@ gem "devise", "2.0.0"
 #gem "twitter", "2.5.0"
 gem "cancan"
 gem "fracture"
-gem "mysql2"
+# gem "mysql2"
 gem 'honeybadger'
 gem 'twitter', '~> 5.0'
 gem 'whenever', :require => false
