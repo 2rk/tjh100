@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.11'
 
 #gem "pg"
-gem 'json'
+gem 'json', '1.8.3'
 gem "haml-rails"
 gem "kaminari"
 gem 'kaminari-bootstrap', '~> 0.1.3'
