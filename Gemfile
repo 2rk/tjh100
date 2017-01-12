@@ -18,7 +18,7 @@ gem 'twitter', '~> 5.0'
 gem 'whenever', :require => false
 
 # JSruntime
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -38,8 +38,15 @@ gem 'poltergeist'
 gem "factory_girl_rails", "1.6.0"
 gem "faker"
 
-gem 'capistrano', '~> 2.0'
-gem 'rvm-capistrano', '~> 1.4.4'
+gem 'capistrano', '= 3.4.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1.1'
+
+# Add this if you're using rbenv
+# gem 'capistrano-rbenv', github: "capistrano/rbenv"
+
+# Add this if you're using rvm
+gem 'capistrano-rvm', github: 'capistrano/rvm'
 
 group :test, :development do
   #gem 'sqlite3'
