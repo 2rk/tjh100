@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'activerecord-mysql2-adapter'
+# gem 'activerecord-mysql2-adapter'
 #gem "pg"
 gem 'json', '1.8.3'
 gem "haml-rails"
