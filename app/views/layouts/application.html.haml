@@ -24,8 +24,8 @@
               %li= link_to "Switch to Game Day", id: "game_day"
       .container.content
         %h3
-          Submission of picks stops Thursday 21 Jan 8:00 PM
-        Welcome #{current_user.name}, There are #{(Date.new(2016, 1, 26) - Date.today).to_i} days until game day, and there are
+          Submission of picks stops Sunday 22 Jan 9:00 AM
+        Welcome #{current_user.name}, There are #{(Date.new(2017, 1, 26) - Date.today).to_i} days until game day, and there are
         #{User.all.count} registered players with #{User.number_submitted} of these already submitted their picks.
         %p
         You have picked #{current_user.selections.length} of #{Selection::SELECTION_QTY} songs
