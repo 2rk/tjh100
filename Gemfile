@@ -31,7 +31,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'nokogiri'
+gem 'nokogiri', ''~> 1.8.1'
 
 # Phantom JS headless browser scraping of angular sites
 gem 'poltergeist'
